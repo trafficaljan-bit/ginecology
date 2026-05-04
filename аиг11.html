@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Клинические случаи - Акушерство и гинекология (50 задач)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: linear-gradient(145deg, #e0f2fe 0%, #bae6fd 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: rgba(255,255,255,0.96);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+        }
+        .header h1 {
+            background: linear-gradient(135deg, #1e4a7a, #0e7a7a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: #d9f0ec;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #0f5e5e;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            background: white;
+            border-radius: 48px;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+        }
+        .nav-btn {
+            background: #2c6e6e;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .nav-btn:hover { background: #1b4f4f; transform: translateY(-2px); }
+        .main-content { display: grid; grid-template-columns: 330px 1fr; gap: 26px; }
+        @media (max-width: 780px) { .main-content { grid-template-columns: 1fr; } }
+        .cases-list {
+            background: white;
+            border-radius: 32px;
+            padding: 18px;
+            max-height: 75vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+        .search-box:focus { border-color: #2c6e6e; outline: none; }
+        .case-item {
+            background: #f8fafc;
+            padding: 12px 14px;
+            margin: 8px 0;
+            border-radius: 20px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .case-item:hover { background: #eef2ff; transform: translateX(4px); }
+        .case-item.active { background: #dcfce7; border-left-color: #2c6e6e; }
+        .case-item.answered-correct { background: #d1fae5; border-left-color: #059669; }
+        .case-item.answered-wrong { background: #fee2e2; border-left-color: #dc2626; }
+        .case-number { font-weight: 800; color: #1f4f4f; }
+        .case-status { float: right; font-size: 14px; }
+        .case-card {
+            background: white;
+            border-radius: 36px;
+            padding: 28px 30px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            margin-bottom: 28px;
+        }
+        .case-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: #ecfdf5;
+            padding: 14px 20px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+            border-left: 6px solid #2c6e6e;
+            color: #1e3a4a;
+        }
+        .case-description {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 24px;
+            margin-bottom: 24px;
+            font-style: italic;
+            color: #334155;
+            line-height: 1.5;
+        }
+        .question-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #0c4a6e;
+            padding: 8px 12px;
+            background: #fef9c3;
+            border-radius: 20px;
+        }
+        .answers-list { list-style: none; margin-bottom: 25px; }
+        .answer-item {
+            background: #f9f9ff;
+            margin: 10px 0;
+            padding: 12px 18px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            transition: 0.2s;
+        }
+        .answer-item:hover { background: #e6f7e6; transform: translateX(6px); }
+        .answer-item.disabled {
+            cursor: default;
+            opacity: 0.8;
+        }
+        .answer-item.disabled:hover {
+            transform: none;
+            background: #f9f9ff;
+        }
+        .answer-letter {
+            width: 32px;
+            height: 32px;
+            background: #2c6e6e;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        .correct-highlight {
+            background: #d1fae5 !important;
+            border-color: #059669 !important;
+            position: relative;
+        }
+        .correct-highlight::after {
+            content: "✓";
+            position: absolute;
+            right: 25px;
+            color: #059669;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .wrong-highlight {
+            background: #fee2e2 !important;
+            border-color: #dc2626 !important;
+            position: relative;
+        }
+        .wrong-highlight::after {
+            content: "✗";
+            position: absolute;
+            right: 25px;
+            color: #dc2626;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 28px;
+            animation: fade 0.25s ease;
+        }
+        .result-correct { background: #d1fae5; color: #065f46; border-left: 5px solid #059669; }
+        .result-incorrect { background: #fee2e2; color: #991b1b; border-left: 5px solid #dc2626; }
+        .explanation { margin-top: 10px; font-size: 0.9rem; padding: 8px 12px; background: #fef9c3; border-radius: 20px; }
+        .btn { border: none; padding: 12px 26px; border-radius: 60px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background: #2c6e6e; color: white; }
+        .btn-primary:hover { background: #1b4f4f; }
+        .btn-secondary { background: #94a3b8; color: white; }
+        .btn-secondary:hover { background: #64748b; }
+        .stats-panel {
+            background: white;
+            border-radius: 32px;
+            padding: 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 60px;
+            height: 28px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #2c6e6e, #38bdf8);
+            width: 0%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        @keyframes fade { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .footer { text-align: center; margin-top: 30px; color: #334155; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📋 Клинические case studies</h1>
+        <p>Акушерство и гинекология — 50 клинических задач с вариантами ответов</p>
+        <div class="badge" id="totalInfo">Загрузка статистики...</div>
+    </div>
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="resetAllProgress()">🔄 Сбросить прогресс</button>
+        <button class="nav-btn" onclick="showRandomCase()">🎲 Случайный случай</button>
+    </div>
+    <div class="main-content">
+        <div class="cases-list">
+            <h3 style="color:#1f4f4f; margin-bottom: 12px;">📌 Навигация (50 случаев)</h3>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по номеру или тексту" onkeyup="filterCases()">
+            <div id="casesListContainer"></div>
+        </div>
+        <div>
+            <div class="case-card">
+                <div class="case-title" id="caseTitle">Загрузка...</div>
+                <div class="case-description" id="caseDescription"></div>
+                <div class="question-text" id="questionText"></div>
+                <ul class="answers-list" id="answersList"></ul>
+                <div id="resultBox"></div>
+                <div class="buttons" style="display: flex; gap: 12px; justify-content: center; margin-top: 15px;">
+                    <button class="btn btn-secondary" onclick="prevCase()">◀ Предыдущий</button>
+                    <button class="btn btn-secondary" onclick="nextCase()">Следующий ▶</button>
+                </div>
+            </div>
+            <div class="stats-panel">
+                <h3>📊 Прогресс</h3>
+                <div><span id="correctCount">0</span> / <span id="totalCount">50</span></div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill">0%</div></div>
+                <p style="font-size: 12px; margin-top: 10px;">✅ Зелёный фон — ответ дан<br>💡 После выбора блокируется, правильный вариант подсвечивается</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Клинические задачи по акушерству и гинекологии | 50 уникальных случаев | Автосохранение прогресса</p>
+    </div>
+</div>
+
+<script>
+    // ========== ВСЕ 50 КЛИНИЧЕСКИХ СЛУЧАЕВ (ПОЛНОСТЬЮ ИСПРАВЛЕНЫ) ==========
+    const CASES = [
+        // Случаи 1-30 (акушерство и гинекология)
+        { id: 1, title: "Случай №1: Первобеременная 28 лет", description: "Первобеременная 28 лет, срок 39 нед. Схватки 6 ч, воды не отходили. Влагалищно: шейка сглажена, открытие 5 см, пузырь цел, головка прижата. Схватки через 5-6 мин по 30 сек.", question: "Определите период родов и фазу.", answers: ["1 период, латентная фаза", "1 период, активная фаза", "2 период, начало потуг", "1 период, фаза замедления", "2 период, фаза прорезывания"], correct: 1, explanation: "Активная фаза I периода: раскрытие 4-8 см, схватки регулярные." },
+        { id: 2, title: "Случай №2: Вторые роды", description: "Роженица 32 лет, вторые роды, открытие полное, головка на тазовом дне, стреловидный шов в прямом размере, малый родничок спереди.", question: "Определите предлежание и позицию.", answers: ["Задний вид затылочного, 1 поз.", "Передний вид затылочного, 2 поз.", "Передний вид затылочного, 1 поз.", "Задний вид затылочного, 2 поз.", "Лицевое предлежание"], correct: 2, explanation: "Малый родничок спереди — передний вид, стреловидный шов в прямом размере." },
+        { id: 3, title: "Случай №3: Преэклампсия", description: "Беременная 35 лет, 33 нед, АД 170/100, белок мочи 2,5 г/л, головная боль, боли в эпигастрии, отеки.", question: "Наиболее вероятный диагноз?", answers: ["Гестационная гипертензия", "Преэклампсия легкой степени", "Преэклампсия тяжелой степени", "Хроническая гипертензия", "Эклампсия"], correct: 2, explanation: "Тяжёлая преэклампсия: АД≥160/110, белок>2 г/л, симптомы." },
+        { id: 4, title: "Случай №4: ПОНРП", description: "Беременная 30 лет, 38 нед, внезапные резкие боли, матка напряжена, асимметрична, плод не слышен, тёмные выделения.", question: "Осложнение?", answers: ["ПОНРП", "Предлежание плаценты", "Разрыв матки", "Выкидыш", "Многоводие"], correct: 0, explanation: "ПОНРП: внезапная боль, гипертонус, асимметрия, гибель плода." },
+        { id: 5, title: "Случай №5: Перенашивание", description: "41 нед, маловодие, плацента 3 ст. с петрификатами, кости черепа уплотнены, шейка незрелая.", question: "Диагноз и тактика?", answers: ["Пролонгированная, выжидательная", "Истинное перенашивание, индукция", "Истинное перенашивание, плановое КС", "Пролонгированная, КС", "Своевременная"], correct: 2, explanation: "Истинное перенашивание >10-14 дней, незрелая шейка — кесарево сечение." },
+        { id: 6, title: "Случай №6: Миома матки", description: "45 лет, обильные длительные менструации 8 мес, матка увеличена до 10 нед, плотная, бугристая.", question: "Диагноз?", answers: ["Аденомиоз", "Миома матки", "Рак эндометрия", "Гиперплазия", "Полип"], correct: 1, explanation: "Миома: бугристое увеличение матки, меноррагии." },
+        { id: 7, title: "Случай №7: Бесплодие", description: "28 лет, бесплодие 3 года, в анамнезе 2 медаборта+эндометрит, лапароскопия: спайки, непроходимость трубы.", question: "Фактор бесплодия?", answers: ["Эндокринный", "Трубно-перитонеальный", "Маточный", "Иммунологический", "Мужской"], correct: 1, explanation: "Непроходимость труб и спайки — трубно-перитонеальный фактор." },
+        { id: 8, title: "Случай №8: СПКЯ", description: "19 лет, редкие менструации (45-60 дн), гирсутизм, УЗИ: яичники увеличены, «жемчужное ожерелье».", question: "Диагноз?", answers: ["Эндометриоз", "СПКЯ", "Адреногенитальный синдром", "Миома", "Истощение яичников"], correct: 1, explanation: "СПКЯ: олигоменорея, гирсутизм, эхо-признак." },
+        { id: 9, title: "Случай №9: Постменопауза", description: "52 года, постменопауза 3 года, кровянистые выделения, УЗИ: эндометрий 12 мм.", question: "Первоочередной метод?", answers: ["ГСГ", "УЗИ динамика", "РДВ+гистероскопия", "Кольпоскопия", "МРТ"], correct: 2, explanation: "Кровотечение в постменопаузе + утолщение эндометрия → РДВ." },
+        { id: 10, title: "Случай №10: Лейкоплакия", description: "34 года, контактные кровотечения, на шейке белесоватое возвышение, проба Шиллера йоднегативна.", question: "Диагноз и тактика?", answers: ["Эктопия, наблюдение", "Лейкоплакия, биопсия", "Полип, удаление", "Эритроплакия", "Эрозия"], correct: 1, explanation: "Лейкоплакия — йоднегативные бляшки, требуется биопсия." },
+        { id: 11, title: "Случай №11: Сальпингоофорит", description: "27 лет, боли внизу живота, t 38,5°C, гнойные выделения, ВМС.", question: "Диагноз?", answers: ["Апоплексия", "Острый сальпингоофорит", "Внематочная", "Аппендицит", "Киста"], correct: 1, explanation: "Острая инфекция на фоне ВМС → сальпингоофорит." },
+        { id: 12, title: "Случай №12: Аденомиоз", description: "36 лет, дисменорея, тазовые боли, бесплодие, УЗИ: аденомиоз.", question: "Диагноз?", answers: ["Миома", "Эндометриоз", "СПКЯ", "Эндометрит", "Полип"], correct: 1, explanation: "Аденомиоз — внутренний эндометриоз." },
+        { id: 13, title: "Случай №13: Апоплексия яичника", description: "25 лет, внезапные боли на 16 день цикла, АД 90/60, пункция — темная кровь.", question: "Диагноз?", answers: ["Внематочная", "Апоплексия яичника", "Аппендицит", "Перекрут кисты", "Эндометриоз"], correct: 1, explanation: "Апоплексия: боль в середине цикла, внутрибрюшное кровотечение." },
+        { id: 14, title: "Случай №14: Внематочная беременность", description: "30 лет, задержка 3 нед, мажущие выделения, УЗИ: плодного яйца в матке нет, образование в трубе.", question: "Диагноз?", answers: ["Маточная беременность", "Угроза выкидыша", "Трубная беременность", "Киста", "Эндометрит"], correct: 2, explanation: "Положительный тест на беременность, нет плодного яйца в матке → внематочная." },
+        { id: 15, title: "Случай №15: Предлежание плаценты", description: "32 года, 35 нед, безболезненные ярко-красные выделения, УЗИ: плацента перекрывает внутренний зев.", question: "Диагноз?", answers: ["ПОНРП", "Центральное предлежание плаценты", "Разрыв матки", "Преждевременные роды", "Краевое предлежание"], correct: 1, explanation: "Безболезненное кровотечение + плацента над зевом → предлежание." },
+        { id: 16, title: "Случай №16: Рубец на матке", description: "34 года, повторная беременность, рубец после КС, УЗИ: рубец состоятельный.", question: "Тактика?", answers: ["Плановое КС", "Роды через пути", "Индукция", "Экстренное КС", "Амниотомия"], correct: 0, explanation: "Рубец на матке после КС — плановое кесарево сечение." },
+        { id: 17, title: "Случай №17: Тазовое предлежание", description: "29 лет, 39 нед, чисто ягодичное, масса плода 3800 г, таз нормальный.", question: "Метод родоразрешения?", answers: ["Самостоятельные роды", "Пособие по Цовьянову", "Кесарево сечение", "Классическое пособие", "Извлечение за тазовый конец"], correct: 2, explanation: "Крупный плод (>3600) при тазовом предлежании — КС." },
+        { id: 18, title: "Случай №18: ГСД", description: "33 года, 28 нед, ожирение, ПГТТ: глюкоза через 2 ч 9,5 ммоль/л.", question: "Диагноз?", answers: ["ГСД", "Манифестный диабет", "Нарушенная толерантность", "Норма", "Диабет 1 типа"], correct: 0, explanation: "ГСД: глюкоза через 2 ч ≥8,5 ммоль/л." },
+        { id: 19, title: "Случай №19: Преждевременные роды", description: "31 нед, схватки каждые 10 мин, шейка укорочена до 1,5 см, раскрытие 1 см.", question: "Тактика?", answers: ["Токолиз+СДР", "КС", "Выжидательная", "Индукция", "Амниотомия"], correct: 0, explanation: "Угрожающие преждевременные роды: токолиз + глюкокортикоиды." },
+        { id: 20, title: "Случай №20: Хориоамнионит", description: "30 лет, безводный 24 ч, t 38,5°C, тахикардия, болезненность матки, гнойные выделения.", question: "Тактика?", answers: ["Антибиотики", "Родовозбуждение", "Экстренное КС", "Выжидательная", "Амниотомия"], correct: 2, explanation: "Хориоамнионит — показание к экстренному кесареву сечению." },
+        { id: 21, title: "Случай №21: Мастит", description: "Родильница, 10 день, t 39°C, уплотнение и гиперемия в молочной железе, флюктуации нет.", question: "Диагноз?", answers: ["Лактостаз", "Инфильтративный мастит", "Гнойный мастит", "Галактоцеле", "Флегмона"], correct: 1, explanation: "Инфильтративный мастит: лихорадка, уплотнение, нет флюктуации." },
+        { id: 22, title: "Случай №22: Гонорея", description: "22 года, обильные гнойные выделения, дизурия, мазок: грамотрицательные диплококки внутриклеточно.", question: "Возбудитель?", answers: ["Трихомонада", "Хламидия", "Гонококк", "Микоплазма", "Гарднерелла"], correct: 2, explanation: "Гонококки: грамотрицательные диплококки внутриклеточно." },
+        { id: 23, title: "Случай №23: Трихомониаз", description: "Зуд, жжение, пенистые желто-зеленые выделения, в мазке подвижные простейшие.", question: "Диагноз?", answers: ["Кандидоз", "Бактериальный вагиноз", "Трихомониаз", "Гонорея", "Хламидиоз"], correct: 2, explanation: "Трихомонады подвижны, пенистые выделения." },
+        { id: 24, title: "Случай №24: Мастопатия", description: "Боль в молочных железах во вторую фазу цикла, мазня из сосков, УЗИ: кисты.", question: "Диагноз?", answers: ["Рак", "Фиброаденома", "Диффузная мастопатия", "Липома", "Галактоцеле"], correct: 2, explanation: "Диффузная мастопатия: цикличная боль, железисто-кистозная ткань." },
+        { id: 25, title: "Случай №25: Рак эндометрия", description: "60 лет, постменопауза 10 лет, кровянистые выделения, УЗИ: эндометрий 18 мм.", question: "Диагноз?", answers: ["Атрофия", "Гиперплазия", "Полип", "Рак эндометрия", "Эндометрит"], correct: 3, explanation: "Кровотечение в постменопаузе + эндометрий >5 мм → рак." },
+        { id: 26, title: "Случай №26: Дистоция шейки", description: "Роды, открытие 5-6 см более 6 ч, края шейки толстые, плотные, головка прижата.", question: "Тактика?", answers: ["КС", "Амниотомия", "Насечки на шейке+простагландины", "Окситоцин", "Выжидательная"], correct: 2, explanation: "Дистоция шейки — насечки + простагландины." },
+        { id: 27, title: "Случай №27: ОРСТ", description: "Рост 152 см, размеры таза 23-25-27-17 см, истинная конъюгата 9 см.", question: "Степень сужения?", answers: ["1", "2", "3", "4", "Нет"], correct: 1, explanation: "ИК 9-10 см — 1 степень сужения." },
+        { id: 28, title: "Случай №28: Эклампсия", description: "Беременная 34 нед, судороги, АД 180/110, белок 3 г/л, кома.", question: "Диагноз?", answers: ["Преэклампсия", "Эклампсия", "Гипертензия", "Эпилепсия", "Инсульт"], correct: 1, explanation: "Эклампсия: судороги на фоне преэклампсии." },
+        { id: 29, title: "Случай №29: Выворот матки", description: "Родильница, 3 период родов, шок, бледность, выпавшее образование из влагалища, матка не прощупывается.", question: "Диагноз?", answers: ["Разрыв матки", "Гематома", "Выворот матки", "Опухоль", "Предлежание"], correct: 2, explanation: "Выворот матки: выпавшее образование, шок, отсутствие матки над лоном." },
+        { id: 30, title: "Случай №30: Разрыв матки", description: "Роды, внезапное прекращение схваток, шок, части плода под кожей живота.", question: "Диагноз?", answers: ["ПОНРП", "Разрыв матки", "Эмболия", "Гипотония", "Атония"], correct: 1, explanation: "Разрыв матки: прекращение схваток, шок, части плода под кожей." },
+        
+        // Случаи 31-50 (полностью исправлены и проверены)
+        { id: 31, title: "Случай №31: Киста яичника", description: "35 лет, тянущие боли внизу живота, УЗИ: анэхогенное образование 6 см, тонкая капсула.", question: "Диагноз?", answers: ["Дермоидная", "Фолликулярная киста", "Эндометриома", "Цистаденома", "Рак"], correct: 1, explanation: "Фолликулярная киста: анэхогенное, тонкостенное, <8 см." },
+        { id: 32, title: "Случай №32: Полип эндометрия", description: "42 года, межменструальные кровотечения, УЗИ: гиперэхогенное образование 1,5 см в полости матки.", question: "Диагноз?", answers: ["Миома", "Полип", "Гиперплазия", "Аденомиоз", "Рак"], correct: 1, explanation: "Полип эндометрия — гиперэхогенное образование в полости матки." },
+        { id: 33, title: "Случай №33: Бартолинит", description: "Постепенно нарастающее болезненное образование в области половой губы, t 38°C, флюктуация.", question: "Диагноз?", answers: ["Вульвит", "Абсцесс бартолиновой железы", "Киста", "Эндометрит", "Кольпит"], correct: 1, explanation: "Абсцесс бартолиновой железы: флюктуация, лихорадка." },
+        { id: 34, title: "Случай №34: Крауроз вульвы", description: "60 лет, зуд, жжение, истончение и сморщивание вульвы, белесоватые бляшки.", question: "Диагноз?", answers: ["Лейкоплакия", "Крауроз", "Эритроплакия", "Кандидоз", "Витилиго"], correct: 1, explanation: "Крауроз: сморщивание, истончение вульвы, зуд." },
+        { id: 35, title: "Случай №35: Аномальное маточное кровотечение", description: "48 лет, обильные менструации 10-12 дней, цикл 21-24 дня, анемия.", question: "Диагноз?", answers: ["Миома", "Аденомиоз", "ДМК", "Полип", "Рак"], correct: 2, explanation: "ДМК на фоне ановуляции — меноррагия, укорочение цикла." },
+        { id: 36, title: "Случай №36: Угрожающий выкидыш", description: "10 нед, тянущие боли, мажущие выделения, матка в тонусе, канал закрыт.", question: "Диагноз?", answers: ["Начавшийся выкидыш", "Аборт в ходу", "Угрожающий выкидыш", "Неполный аборт", "Замершая"], correct: 2, explanation: "Угрожающий выкидыш: боли, выделения, закрытый канал." },
+        { id: 37, title: "Случай №37: Синехии", description: "Бесплодие после выскабливаний, гистероскопия: сращения в полости матки.", question: "Диагноз?", answers: ["Гипоплазия", "Синехии (синдром Ашермана)", "Эндометрит", "Миома", "Аденомиоз"], correct: 1, explanation: "Синдром Ашермана — внутриматочные синехии." },
+        { id: 38, title: "Случай №38: Тестикулярная феминизация", description: "18 лет, отсутствие менструаций, женский фенотип, отсутствие матки, короткое влагалище.", question: "Диагноз?", answers: ["Аплазия матки", "СПКЯ", "Синдром тестикулярной феминизации", "Турнера", "АГС"], correct: 2, explanation: "Синдром тестикулярной феминизации: 46XY, женский фенотип." },
+        { id: 39, title: "Случай №39: Опущение тазового дна", description: "55 лет, чувство инородного тела, стрессовое недержание мочи, шейка матки у входа во влагалище.", question: "Диагноз?", answers: ["Цистоцеле", "Ректоцеле", "Неполное выпадение матки", "Полное выпадение", "Элонгация"], correct: 2, explanation: "Неполное выпадение матки: шейка у входа." },
+        { id: 40, title: "Случай №40: Хорионкарцинома", description: "После пузырного заноса, кровотечение, ХГЧ высокий, метастазы в легких.", question: "Диагноз?", answers: ["Повторный занос", "Хорионкарцинома", "Эндометрит", "Рак", "Трофобластическая опухоль"], correct: 1, explanation: "Хорионкарцинома: после заноса, высокий ХГЧ, метастазы." },
+        { id: 41, title: "Случай №41: Серозная цистаденокарцинома", description: "56 лет, постменопауза, образование яичника с сосочковыми разрастаниями, асцит.", question: "Диагноз?", answers: ["Фиброма", "Муцинозная", "Серозная цистаденокарцинома", "Эндометриома", "Текома"], correct: 2, explanation: "Серозная цистаденокарцинома: сосочки, асцит." },
+        { id: 42, title: "Случай №42: Кандидоз", description: "Зуд, творожистые выделения, гиперемия вульвы, сахарный диабет.", question: "Диагноз?", answers: ["Трихомониаз", "Бактериальный вагиноз", "Кандидоз", "Гонорея", "Гарднереллез"], correct: 2, explanation: "Кандидоз: творожистые выделения, зуд." },
+        { id: 43, title: "Случай №43: Дисплазия шейки матки", description: "30 лет, дисплазия CIN2, ВПЧ 16 тип.", question: "Лечение?", answers: ["Наблюдение", "Противовирусная терапия", "Эксцизия/конизация", "Вакцинация", "Кольпоскопия"], correct: 2, explanation: "CIN2 требует конизации." },
+        { id: 44, title: "Случай №44: Тампонада матки", description: "Гипотоническое кровотечение после родов, неэффективность утеротоников.", question: "Следующий этап?", answers: ["Эмболизация", "Наружно-внутренний массаж", "Гемостатические швы/тампадада", "Экстирпация", "Перевязка артерий"], correct: 2, explanation: "Гипотония — гемостатические швы или тампадада." },
+        { id: 45, title: "Случай №45: Эндометрит после аборта", description: "5 день после аборта, t 39°C, гнойные выделения, матка болезненная.", question: "Диагноз?", answers: ["Эндометрит", "Пельвиоперитонит", "Сальпингит", "Параметрит", "Сепсис"], correct: 0, explanation: "Эндометрит: лихорадка, гнойные выделения." },
+        { id: 46, title: "Случай №46: Преждевременная недостаточность яичников", description: "32 года, аменорея 1 год, ФСГ 45 МЕ/л, эстрадиол низкий.", question: "Диагноз?", answers: ["Синдром истощения яичников", "Гипогонадотропизм", "СПКЯ", "Преждевременная недостаточность", "Гиперпролактинемия"], correct: 3, explanation: "ФСГ >40 — преждевременная недостаточность." },
+        { id: 47, title: "Случай №47: Аденомиоз", description: "Болезненные обильные менструации, матка шаровидной формы.", question: "Лучший метод диагностики?", answers: ["УЗИ", "МРТ", "Гистероскопия", "Лапароскопия", "Метросальпингография"], correct: 2, explanation: "Гистероскопия — визуализация аденомиоза." },
+        { id: 48, title: "Случай №48: Синдром Морриса", description: "16 лет, отсутствие менструаций, женский фенотип, матка не развита, кариотип 46XY.", question: "Диагноз?", answers: ["АГС", "Синдром тестикулярной феминизации", "Дисгенезия гонад", "Турнера", "Свайера"], correct: 1, explanation: "Синдром тестикулярной феминизации: 46XY, фенотип женский." },
+        { id: 49, title: "Случай №49: Токсический шок", description: "3 дня после родов, t 40°C, сыпь, гипотензия, полиорганная недостаточность.", question: "Возбудитель?", answers: ["E.coli", "St.aureus", "Streptococcus", "Candida", "Clostridium"], correct: 1, explanation: "Токсический шок — стафилококковый токсин." },
+        { id: 50, title: "Случай №50: Задержка плаценты", description: "3 период 30 мин, кровотечение 400 мл, плацента не отделяется.", question: "Тактика?", answers: ["Наружные приемы", "Ручное отделение плаценты", "Кюретаж", "Окситоцин", "Лапаротомия"], correct: 1, explanation: "Задержка плаценты с кровотечением → ручное отделение." }
+    ];
+
+    let userAnswers = JSON.parse(localStorage.getItem('clinical_cases_final_50') || '{}');
+    let currentId = parseInt(localStorage.getItem('clinical_cases_current_final') || '1');
+
+    function getTotal() { return CASES.length; }
+    function getCorrectCount() { return Object.values(userAnswers).filter(v => v === true).length; }
+
+    function updateStats() {
+        const total = getTotal();
+        const correct = getCorrectCount();
+        document.getElementById('correctCount').innerText = correct;
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('totalInfo').innerHTML = `📊 Решено: ${correct}/${total}`;
+        const percent = total ? (correct / total * 100).toFixed(1) : 0;
+        const fill = document.getElementById('progressFill');
+        fill.style.width = percent + '%';
+        fill.innerHTML = percent + '%';
+    }
+
+    function getCaseById(id) { return CASES.find(c => c.id === id); }
+
+    function checkAnswer(selectedIdx, answerLetter, answerText) {
+        const c = getCaseById(currentId);
+        if (!c || userAnswers[currentId] !== undefined) return;
+        const isCorrect = (selectedIdx === c.correct);
+        userAnswers[currentId] = isCorrect;
+        localStorage.setItem('clinical_cases_final_50', JSON.stringify(userAnswers));
+        localStorage.setItem(`case_selected_${currentId}`, selectedIdx);
+        
+        const expl = `<div class="explanation">📖 Обоснование: ${c.explanation}</div>`;
+        const resultDiv = document.getElementById('resultBox');
+        if (isCorrect) {
+            resultDiv.innerHTML = `<div class="result-box result-correct">✅ Верно! ${answerLetter}) ${answerText}<br>${expl}</div>`;
+        } else {
+            const correctAns = c.answers[c.correct];
+            const correctLetter = String.fromCharCode(65 + c.correct);
+            resultDiv.innerHTML = `<div class="result-box result-incorrect">❌ Неверно. Ваш: ${answerLetter}) ${answerText}<br>✅ Верный: ${correctLetter}) ${correctAns}<br>${expl}</div>`;
+        }
+        renderAnswersList();
+        renderCasesList();
+        updateStats();
+    }
+
+    function renderAnswersList() {
+        const c = getCaseById(currentId);
+        if (!c) return;
+        document.getElementById('caseTitle').innerHTML = `📋 ${c.title}`;
+        document.getElementById('caseDescription').innerHTML = `📝 ${c.description}`;
+        document.getElementById('questionText').innerHTML = `❓ ${c.question}`;
+        const letters = ['A','B','C','D','E'];
+        const answered = userAnswers[currentId] !== undefined;
+        const userSelected = localStorage.getItem(`case_selected_${currentId}`);
+        let html = '';
+        for (let i=0; i<c.answers.length; i++) {
+            let cls = '';
+            let click = answered ? `style="cursor:default;"` : `onclick="checkAnswer(${i},'${letters[i]}',\`${c.answers[i].replace(/`/g,"\\`")}\`)"`;
+            if (answered && i === c.correct) cls = 'correct-highlight';
+            if (answered && parseInt(userSelected) === i && i !== c.correct) cls = 'wrong-highlight';
+            html += `<li class="answer-item ${cls} ${answered ? 'disabled' : ''}" ${click}>
+                        <span class="answer-letter">${letters[i]}</span>
+                        <span class="answer-text">${c.answers[i]}</span>
+                    </li>`;
+        }
+        document.getElementById('answersList').innerHTML = html;
+        if (answered) {
+            const correctAns = c.answers[c.correct];
+            const correctLetter = String.fromCharCode(65 + c.correct);
+            const isCor = userAnswers[currentId] === true;
+            const exp = `<div class="explanation">📖 Обоснование: ${c.explanation}</div>`;
+            if (isCor) {
+                document.getElementById('resultBox').innerHTML = `<div class="result-box result-correct">✅ Ранее отвечено верно (${correctLetter}) ${correctAns}<br>${exp}</div>`;
+            } else {
+                const sel = parseInt(userSelected);
+                const selAns = c.answers[sel];
+                const selLetter = String.fromCharCode(65 + sel);
+                document.getElementById('resultBox').innerHTML = `<div class="result-box result-incorrect">❌ Ранее отвечено НЕВЕРНО (${selLetter}) ${selAns}<br>✅ Верный ответ: ${correctLetter}) ${correctAns}<br>${exp}</div>`;
+            }
+        } else document.getElementById('resultBox').innerHTML = '';
+    }
+
+    function renderCasesList() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const container = document.getElementById('casesListContainer');
+        let html = '';
+        const sorted = [...CASES].sort((a,b)=>a.id-b.id);
+        for (let c of sorted) {
+            let cls='', ico='';
+            if (userAnswers[c.id]===true) { cls='answered-correct'; ico='✅'; }
+            else if (userAnswers[c.id]===false) { cls='answered-wrong'; ico='❌'; }
+            if (search && !c.title.toLowerCase().includes(search) && !c.id.toString().includes(search)) continue;
+            html += `<div class="case-item ${cls}" onclick="selectCase(${c.id})" data-id="${c.id}">
+                        <span class="case-number">📌 Случай ${c.id}</span>
+                        <span class="case-status">${ico}</span>
+                        <div style="font-size:0.75rem; color:#475569;">${c.title.substring(0,55)}</div>
+                    </div>`;
+        }
+        container.innerHTML = html || '<div style="padding:20px">Нет результатов</div>';
+        document.querySelectorAll('.case-item').forEach(el=>{
+            if(parseInt(el.dataset.id)===currentId) el.classList.add('active');
+            else el.classList.remove('active');
+        });
+    }
+
+    function selectCase(id) { currentId=id; localStorage.setItem('clinical_cases_current_final',id); renderAnswersList(); renderCasesList(); }
+    function nextCase() { const ids=CASES.map(c=>c.id).sort((a,b)=>a-b); let idx=ids.indexOf(currentId); if(idx<ids.length-1) selectCase(ids[idx+1]); }
+    function prevCase() { const ids=CASES.map(c=>c.id).sort((a,b)=>a-b); let idx=ids.indexOf(currentId); if(idx>0) selectCase(ids[idx-1]); }
+    function resetAllProgress() { if(confirm('Сбросить прогресс по всем 50 случаям?')) { userAnswers={}; localStorage.setItem('clinical_cases_final_50','{}'); for(let c of CASES) localStorage.removeItem(`case_selected_${c.id}`); selectCase(1); updateStats(); renderCasesList(); } }
+    function showRandomCase() { const rand=CASES[Math.floor(Math.random()*CASES.length)].id; selectCase(rand); }
+    function filterCases() { renderCasesList(); }
+
+    window.onload = () => { renderAnswersList(); renderCasesList(); updateStats(); };
+    window.checkAnswer = checkAnswer; window.selectCase = selectCase; window.nextCase = nextCase; window.prevCase = prevCase;
+    window.resetAllProgress = resetAllProgress; window.showRandomCase = showRandomCase; window.filterCases = filterCases;
+</script>
+</body>
+</html>

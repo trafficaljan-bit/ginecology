@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Акушерство и гинекология — главный портал тестов (500 задач)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, 'Inter', sans-serif;
+            background: linear-gradient(145deg, #e9d7fd 0%, #b8a0e6 100%);
+            min-height: 100vh;
+            padding: 24px 20px;
+        }
+
+        .main-portal {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Главный баннер */
+        .hero {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(4px);
+            border-radius: 56px;
+            padding: 32px 32px 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .hero h1 {
+            background: linear-gradient(135deg, #2c3e6d, #6b46b4, #b554b0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 2.4rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            color: #2d3748;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            font-weight: 500;
+        }
+
+        .stats-global {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .stat-card {
+            background: #f2edff;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #4a2f7c;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7), 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-card span:first-child {
+            font-size: 1.5rem;
+        }
+
+        .reset-global-btn {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-left: 12px;
+            font-size: 0.9rem;
+        }
+
+        .reset-global-btn:hover {
+            background: #c53030;
+            transform: scale(0.97);
+        }
+
+        /* Сетка частей */
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            margin-bottom: 48px;
+        }
+
+        .part-card {
+            background: white;
+            border-radius: 36px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border: 1px solid rgba(107, 70, 180, 0.15);
+        }
+
+        .part-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.3);
+            border-color: #8a6de9;
+        }
+
+        .part-header {
+            padding: 24px 24px 12px 24px;
+            background: #faf8ff;
+            border-bottom: 2px solid #e9e2ff;
+        }
+
+        .part-number {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #5a3d9c, #8b6ce7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .part-range {
+            font-size: 0.9rem;
+            color: #6c5ce7;
+            font-weight: 600;
+            background: #ede7ff;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-top: 8px;
+        }
+
+        .part-stats {
+            padding: 12px 24px 16px 24px;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-top: 1px solid #f0ebff;
+        }
+
+        .progress-mini {
+            background: #e2e0ff;
+            border-radius: 40px;
+            height: 10px;
+            width: 60%;
+            overflow: hidden;
+        }
+
+        .progress-mini-fill {
+            background: linear-gradient(90deg, #6b46b4, #9f7aea);
+            width: 0%;
+            height: 100%;
+            border-radius: 40px;
+        }
+
+        .score-badge {
+            font-weight: 800;
+            background: #f0ecfe;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #4a3b8c;
+        }
+
+        .open-button {
+            background: #6c5ce7;
+            margin: 16px 24px 24px 24px;
+            padding: 12px 0;
+            text-align: center;
+            border-radius: 60px;
+            font-weight: 700;
+            color: white;
+            transition: 0.2s;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 14px rgba(108,92,231,0.25);
+        }
+
+        .part-card:hover .open-button {
+            background: #5141c2;
+            letter-spacing: 0.3px;
+        }
+
+        /* секция клинических кейсов + дополнительно */
+        .extra-section {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 48px;
+            padding: 28px 32px;
+            margin-top: 20px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .extra-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-left: 6px solid #8b6ce7;
+            padding-left: 20px;
+        }
+
+        .case-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: flex-start;
+        }
+
+        .case-btn {
+            background: #ffffff;
+            border: 2px solid #cbbff5;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #4c3b8a;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .case-btn:hover {
+            background: #ede7ff;
+            border-color: #8b6ce7;
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 45px;
+            color: #2d2a44;
+            font-weight: 500;
+            font-size: 0.85rem;
+            background: rgba(255,255,240,0.5);
+            border-radius: 100px;
+            padding: 12px 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            background: none;
+            border: none;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 1.8rem; }
+            .parts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-portal">
+    <div class="hero">
+        <h1>🏥 Акушерство & Гинекология</h1>
+        <p>Полный сборник тестовых заданий — 500 вопросов + 50 клинических случаев.<br>
+        Выберите раздел, прогресс сохраняется в браузере автоматически.</p>
+        <div class="stats-global">
+            <div class="stat-card" id="globalCorrectStat">
+                <span>📊</span> <span id="globalCorrectCount">0</span> / <span id="globalTotalCount">500</span> правильных
+            </div>
+            <button class="reset-global-btn" id="globalResetButton">🔄 Сбросить ВСЕ части</button>
+        </div>
+    </div>
+
+    <!-- сетка 10 частей (1-500) -->
+    <div class="parts-grid" id="partsGrid"></div>
+
+    <!-- Блок с клиническими случаями (аиг11.html — 50 задач) -->
+    <div class="extra-section">
+        <div class="extra-title">
+            <span>🩺</span> Клинические case studies (50 ситуационных задач)
+        </div>
+        <div class="case-buttons">
+            <div class="case-btn" id="openClinicalCasesBtn">
+                📋 Открыть клинические задачи (50 кейсов) ➔
+            </div>
+            <div class="case-btn" id="clinicalStatsBtn" style="background:#f4efff;">
+                📈 Статистика по клиническим кейсам: <span id="clinicalStatLabel">загрузка...</span>
+            </div>
+        </div>
+        <p style="margin-top: 16px; font-size: 0.85rem; color: #4c51bf;">※ Кейсы включают реальные клинические сценарии: преэклампсия, ПОНРП, узкий таз, миома, СПКЯ и др. Прогресс сохраняется отдельно.</p>
+    </div>
+
+    <div class="footer">
+        📌 Автосохранение ответов | Всего вопросов: 500 (тесты) + 50 клинических задач | Для учебы и самопроверки
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // 1. Параметры: 10 частей (файлы аиг1.html ... аиг10.html)
+    //    Для каждой части уникальный ключ localStorage
+    // --------------------------------------------------------------
+    const PART_CONFIG = [
+        { part: 1, file: "аиг1.html", range: "Вопросы 1-50", storageKey: "obstetrics_userAnswers", startId: 1, endId: 50, total: 50, url: "аиг1.html" },
+        { part: 2, file: "аиг2.html", range: "Вопросы 51-100", storageKey: "obstetrics_userAnswers_part2", startId: 51, endId: 100, total: 50, url: "аиг2.html" },
+        { part: 3, file: "аиг3.html", range: "Вопросы 101-150", storageKey: "obstetrics_userAnswers_part3", startId: 101, endId: 150, total: 50, url: "аиг3.html" },
+        { part: 4, file: "аиг4.html", range: "Вопросы 151-200", storageKey: "obstetrics_userAnswers_part4", startId: 151, endId: 200, total: 50, url: "аиг4.html" },
+        { part: 5, file: "аиг5.html", range: "Вопросы 201-250", storageKey: "obstetrics_userAnswers_part5", startId: 201, endId: 250, total: 50, url: "аиг5.html" },
+        { part: 6, file: "аиг6.html", range: "Вопросы 251-300", storageKey: "obstetrics_userAnswers_part6", startId: 251, endId: 300, total: 50, url: "аиг6.html" },
+        { part: 7, file: "аиг7.html", range: "Вопросы 301-350", storageKey: "obstetrics_userAnswers_part7", startId: 301, endId: 350, total: 50, url: "аиг7.html" },
+        { part: 8, file: "аиг8.html", range: "Вопросы 351-400", storageKey: "obstetrics_userAnswers_part8", startId: 351, endId: 400, total: 50, url: "аиг8.html" },
+        { part: 9, file: "аиг9.html", range: "Вопросы 401-450", storageKey: "obstetrics_userAnswers_part9", startId: 401, endId: 450, total: 50, url: "аиг9.html" },
+        { part: 10, file: "аиг10.html", range: "Вопросы 451-500", storageKey: "obstetrics_userAnswers_part10", startId: 451, endId: 500, total: 50, url: "аиг10.html" }
+    ];
+
+    // Дополнительно: для клинических кейсов (аиг11.html) отдельный ключ userAnswers
+    const CLINICAL_STORAGE_KEY = "clinical_cases_final_50";   // из аиг11.html используется именно этот ключ
+    const CLINICAL_TOTAL = 50;
+
+    // Функция получения количества правильных ответов для конкретной части
+    function getPartCorrectCount(partConfig) {
+        try {
+            const stored = localStorage.getItem(partConfig.storageKey);
+            if (!stored) return 0;
+            const answers = JSON.parse(stored);
+            // ответы: true / false
+            let correct = 0;
+            for (let key in answers) {
+                if (answers[key] === true) correct++;
+            }
+            return correct;
+        } catch(e) { return 0; }
+    }
+
+    // Получить правильные ответы по клиническим кейсам
+    function getClinicalCorrectCount() {
+        try {
+            const stored = localStorage.getItem(CLINICAL_STORAGE_KEY);
+            if (!stored) return 0;
+            const answers = JSON.parse(stored);
+            let correct = 0;
+            for (let key in answers) {
+                if (answers[key] === true) correct++;
+            }
+            return correct;
+        } catch(e) { return 0; }
+    }
+
+    // Обновить общую статистику (10 частей + клинические)
+    function updateGlobalStats() {
+        let totalCorrect = 0;
+        let totalQuestions = 0;
+        for (let part of PART_CONFIG) {
+            const correct = getPartCorrectCount(part);
+            totalCorrect += correct;
+            totalQuestions += part.total;
+        }
+        // отображаем общий прогресс по тестам (500 вопросов)
+        document.getElementById('globalCorrectCount').innerText = totalCorrect;
+        document.getElementById('globalTotalCount').innerText = totalQuestions;
+
+        // клиническая статистика в отдельном блоке
+        const clinicalCorrect = getClinicalCorrectCount();
+        const clinicalStatSpan = document.getElementById('clinicalStatLabel');
+        if (clinicalStatSpan) {
+            clinicalStatSpan.innerText = `${clinicalCorrect} / ${CLINICAL_TOTAL} (${Math.round(clinicalCorrect/CLINICAL_TOTAL*100)}%)`;
+        }
+        // также обновим у всех карточек прогресс (перерисовка)
+        renderPartsGrid();
+    }
+
+    // Рендер сетки с прогрессом
+    function renderPartsGrid() {
+        const container = document.getElementById('partsGrid');
+        if (!container) return;
+        let html = '';
+        for (let part of PART_CONFIG) {
+            const correct = getPartCorrectCount(part);
+            const percent = part.total ? Math.round((correct / part.total) * 100) : 0;
+            html += `
+                <div class="part-card" data-part="${part.part}" data-url="${part.url}">
+                    <div class="part-header">
+                        <div class="part-number">Часть ${part.part}</div>
+                        <div class="part-range">${part.range}</div>
+                    </div>
+                    <div class="part-stats">
+                        <div class="progress-mini">
+                            <div class="progress-mini-fill" style="width: ${percent}%;"></div>
+                        </div>
+                        <div class="score-badge">✅ ${correct} / ${part.total}</div>
+                    </div>
+                    <div class="open-button">
+                        🔓 Открыть тесты →
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+        // навешиваем события на карточки
+        document.querySelectorAll('.part-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // если клик на кнопке внутри карточки или самой карточке - открываем ссылку
+                const url = card.getAttribute('data-url');
+                if (url) window.open(url, '_blank');
+            });
+        });
+    }
+
+    // СБРОС ВСЕХ ЧАСТЕЙ (тесты 1-500)
+    function resetAllPartsProgress() {
+        const confirmReset = confirm("⚠️ ВНИМАНИЕ! Это удалит весь прогресс по ВСЕМ 500 тестовым вопросам (части 1-10).\nПрогресс по клиническим кейсам не затрагивается.\nВы уверены?");
+        if (!confirmReset) return;
+        for (let part of PART_CONFIG) {
+            localStorage.removeItem(part.storageKey);
+            // дополнительно, внутри каждого файла могут быть сохраненные выбранные ответы (ans_... / ans_partX_...), почистим для полного сброса
+            if (part.part === 1) {
+                // часть1 хранит ans_${id}
+                for (let i = 1; i <= 50; i++) localStorage.removeItem(`ans_${i}`);
+            } else {
+                const prefix = `ans_part${part.part}_`;
+                for (let i = part.startId; i <= part.endId; i++) {
+                    localStorage.removeItem(`${prefix}${i}`);
+                }
+            }
+        }
+        // также сбросим текущие индексы, чтобы не было конфликтов
+        for (let part of PART_CONFIG) {
+            if (part.part === 1) localStorage.removeItem('obstetrics_currentQuestion');
+            else localStorage.removeItem(`obstetrics_currentQuestion_part${part.part}`);
+        }
+        updateGlobalStats();
+        alert("✅ Прогресс по всем тестовым частям (1-500) успешно сброшен.");
+    }
+
+    // Сброс клинических кейсов (отдельно, через диалог, но реализуем в кнопке, которую добавим опционально)
+    function resetClinicalOnly() {
+        if (confirm("Сбросить прогресс по 50 клиническим случаям (ситуационные задачи)?")) {
+            localStorage.removeItem(CLINICAL_STORAGE_KEY);
+            // удалим дополнительно сохраненные выбранные варианты (case_selected_*)
+            for (let i = 1; i <= 50; i++) {
+                localStorage.removeItem(`case_selected_${i}`);
+            }
+            updateGlobalStats();
+            alert("Прогресс по клиническим кейсам сброшен.");
+        }
+    }
+
+    // Инициализация главной страницы + кнопки
+    document.addEventListener('DOMContentLoaded', () => {
+        renderPartsGrid();
+        updateGlobalStats();
+
+        // Кнопка глобального сброса тестов
+        const globalResetBtn = document.getElementById('globalResetButton');
+        if (globalResetBtn) {
+            globalResetBtn.addEventListener('click', resetAllPartsProgress);
+        }
+
+        // Открытие страницы клинических случаев (аиг11.html)
+        const openClinicalBtn = document.getElementById('openClinicalCasesBtn');
+        if (openClinicalBtn) {
+            openClinicalBtn.addEventListener('click', () => {
+                window.open('аиг11.html', '_blank');
+            });
+        }
+
+        // Дополнительный сброс клинических (можно повесить на alt, но сделаем также по двойному клику на блоке статистики, но добавим кнопку)
+        // для удобства добавим маленькую ссылку в статистике
+        const clinicalStatWrap = document.getElementById('clinicalStatsBtn');
+        if (clinicalStatWrap) {
+            clinicalStatWrap.style.cursor = "pointer";
+            clinicalStatWrap.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm("Сбросить прогресс по клиническим задачам (50 кейсов)?")) {
+                    localStorage.removeItem(CLINICAL_STORAGE_KEY);
+                    for (let i = 1; i <= 50; i++) localStorage.removeItem(`case_selected_${i}`);
+                    updateGlobalStats();
+                    alert("Клинические кейсы: прогресс обнулён.");
+                }
+            });
+        }
+
+        // Также добавим возможность открыть аиг11.html если прописать вручную, кнопка уже есть
+        // Обновляем статистику при любом изменении localStorage? (при возврате на главную)
+        window.addEventListener('storage', (e) => {
+            if (e.key && (e.key.includes('obstetrics_userAnswers') || e.key === CLINICAL_STORAGE_KEY || e.key.includes('case_selected'))) {
+                updateGlobalStats();
+            }
+        });
+    });
+
+    // Обновление при фокусе окна (если пользователь вернулся из вкладки)
+    window.addEventListener('focus', () => {
+        updateGlobalStats();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты по акушерству и гинекологии - Часть 4 (вопросы 151-200)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+        }
+        
+        .header .badge {
+            display: inline-block;
+            background: #667eea20;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .part-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .part-link {
+            display: inline-block;
+            background: #667eea20;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #667eea;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .part-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .part-link.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .nav-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+        }
+        
+        @media (max-width: 800px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .questions-list {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .questions-list h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .question-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .question-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .question-item.active {
+            background: #667eea20;
+            border-left-color: #667eea;
+        }
+        
+        .question-item.answered-correct {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .question-item.answered-incorrect {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .question-status {
+            float: right;
+            font-size: 12px;
+        }
+        
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .question-title {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            line-height: 1.4;
+        }
+        
+        .question-title strong {
+            color: #667eea;
+            background: #667eea10;
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .answers-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .answer-item {
+            padding: 14px 18px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 14px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        
+        .answer-item:hover {
+            background: #e9ecef;
+            transform: translateX(8px);
+        }
+        
+        .answer-item.selected {
+            background: #667eea20;
+            border-color: #667eea;
+        }
+        
+        .answer-item.correct-highlight {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            position: relative;
+        }
+        
+        .answer-item.correct-highlight::after {
+            content: "✓";
+            position: absolute;
+            right: 15px;
+            color: #28a745;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .answer-item.wrong-highlight {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            position: relative;
+        }
+        
+        .answer-item.wrong-highlight::after {
+            content: "✗";
+            position: absolute;
+            right: 15px;
+            color: #dc3545;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .answer-letter {
+            width: 34px;
+            height: 34px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .answer-text {
+            color: #444;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeIn 0.3s;
+        }
+        
+        .result-message.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .result-message.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stats-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stats-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .stats-numbers {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stats-numbers span {
+            color: #667eea;
+            font-size: 2.5em;
+        }
+        
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 30px;
+            height: 35px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.3s;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85em;
+        }
+        
+        .questions-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .questions-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .questions-list::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📚 Тесты по акушерству и гинекологии</h1>
+        <p>Часть 4 | Вопросы 151-200 | Зеленый - правильно, Красный - неправильно</p>
+        <div class="badge" id="totalInfo">Загрузка...</div>
+        <div class="part-navigation">
+            <a class="part-link" onclick="goToPart(1)">📖 Часть 1 (1-50)</a>
+            <a class="part-link" onclick="goToPart(2)">📖 Часть 2 (51-100)</a>
+            <a class="part-link" onclick="goToPart(3)">📖 Часть 3 (101-150)</a>
+            <a class="part-link active" onclick="goToPart(4)">📖 Часть 4 (151-200)</a>
+            <a class="part-link" onclick="goToPart(5)">📖 Часть 5 (201-250)</a>
+        </div>
+    </div>
+    
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="startTest()">📝 Начать тестирование</button>
+        <button class="nav-btn" onclick="resetAllProgress()">🔄 Сбросить прогресс</button>
+        <button class="nav-btn" onclick="showRandomQuestion()">🎲 Случайный вопрос</button>
+    </div>
+    
+    <div class="main-content">
+        <div class="questions-list">
+            <h3>
+                📋 Вопросы 151-200
+                <span id="answeredCount">0/0</span>
+            </h3>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск вопроса..." onkeyup="filterQuestions()">
+            <div id="questionsListContainer"></div>
+        </div>
+        
+        <div>
+            <div class="question-card">
+                <div class="question-title" id="questionTitle"></div>
+                <ul class="answers-list" id="answersList"></ul>
+                <div id="resultMessage"></div>
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="previousQuestion()">◀ Предыдущий</button>
+                    <button class="btn btn-primary" onclick="checkAnswer()">✅ Проверить ответ</button>
+                    <button class="btn btn-secondary" onclick="nextQuestion()">Следующий ▶</button>
+                </div>
+            </div>
+            
+            <div class="stats-panel">
+                <h3>📊 Ваш прогресс</h3>
+                <div class="stats-numbers">
+                    <span id="correctCount">0</span> / <span id="totalCount">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+                </div>
+                <p style="margin-top: 10px; color: #666; font-size: 12px;">
+                    ✅ Правильные ответы сохраняются в браузере
+                </p>
+                <p style="margin-top: 5px; color: #888; font-size: 11px;">
+                    🟢 Зеленый - правильный ответ | 🔴 Красный - неправильный
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Тесты по акушерству и гинекологии | Часть 4 (вопросы 151-200) | Прогресс сохраняется автоматически</p>
+    </div>
+</div>
+
+<script>
+    // ============================================
+    // БАЗА ВОПРОСОВ 151-200 (ПОЛНОСТЬЮ ЗАПОЛНЕНА)
+    // ============================================
+    
+    const QUESTIONS_DATA = [
+        { number: 151, text: "Эмбриогенез заканчивается:", answers: ["на 4-й неделе", "на 6-й неделе", "на 8-й неделе", "на 10-й неделе", "на 12-й неделе"], correct: "C" },
+        { number: 152, text: "Какова средняя масса плода в 7 месяцев (28 недель беременности)?", answers: ["650 г", "520 г", "1000 г", "1200 г", "1500 г"], correct: "C" },
+        { number: 153, text: "Где выслушивается сердцебиение плода при косом положении плода?", answers: ["справа выше пупка", "слева выше пупка", "на уровне пупка", "слева ниже пупка", "справа ниже пупка"], correct: "C" },
+        { number: 154, text: "Где выслушивается сердцебиение плода при переднем виде затылочного предлежания (1 позиция)?", answers: ["справа выше пупка", "слева выше пупка", "справа ниже пупка", "слева ниже пупка", "на уровне пупка"], correct: "D" },
+        { number: 155, text: "При вагинальном исследовании: стреловидный шов в правом косом размере, малый родничок слева спереди. Определите вставление?", answers: ["передний вид, 2 позиция", "передний вид, 1 позиция", "задний вид, 1 позиция", "переднеголовное", "лобное"], correct: "A" },
+        { number: 156, text: "При вагинальном исследовании: стреловидный шов в правом косом размере, малый родничок справа сзади. Определите вставление?", answers: ["передний вид, 2 позиция", "передний вид, 1 позиция", "задний вид, 1 позиция", "переднеголовное", "задний вид, 2 позиция"], correct: "E" },
+        { number: 157, text: "Где находится малый родничок при заднем виде затылочного предлежания, 1 позиция, голова прижата ко входу в таз?", answers: ["сзади справа", "строго сзади", "сзади слева", "слева", "спереди"], correct: "C" },
+        { number: 158, text: "Дно матки посередине между пупком и мечевидным отростком. Срок беременности?", answers: ["30 нед", "32 нед", "36 нед", "38 нед", "28 нед"], correct: "C" },
+        { number: 159, text: "Маточно-плацентарная апоплексия это:", answers: ["кровоизлияние в мышечный слой матки", "кровоизлияние в серозный слой", "кровоизлияние в базальный слой эндометрия", "кровоизлияние во все слои матки", "отслойка плаценты"], correct: "A" },
+        { number: 160, text: "Какова масса доношенного зрелого плода?", answers: ["1000 г", "3000 г", "2500 г и более", "3700 г", "4000 г и более"], correct: "C" },
+        { number: 161, text: "Какова длина плода в 8 недель беременности?", answers: ["6 см", "8 см", "4 см", "16 см", "10 см"], correct: "B" },
+        { number: 162, text: "Какова длина плода в 12 недель беременности?", answers: ["8 см", "9 см", "14 см", "16 см", "10 см"], correct: "B" },
+        { number: 163, text: "Каков срок беременности, если длина плода 16 см?", answers: ["8 нед", "7 нед", "10 нед", "16 нед", "12 нед"], correct: "D" },
+        { number: 164, text: "Каких новорожденных считают крупными?", answers: ["масса 3500-5800 г", "масса свыше 3800 г", "масса свыше 4000 г", "масса свыше 5000 г", "масса свыше 3000 г"], correct: "C" },
+        { number: 165, text: "Что такое недоношенный ребенок?", answers: ["родившийся в 32 недели", "родившийся в 35 недель", "родившийся менее 37 недель с признаками недоношенности", "родившийся в 27 недель", "родившийся в 22 недели"], correct: "C" },
+        { number: 166, text: "Наиболее частая причина кровотечения в третьем периоде родов:", answers: ["нарушение гемостаза", "частичное плотное прикрепление плаценты", "истинное приращение плаценты", "разрыв шейки матки", "задержка частей плаценты"], correct: "E" },
+        { number: 167, text: "При наличии приращения плаценты имеет место:", answers: ["пиелонефрит", "наличие абортов в анамнезе", "отсутствие абортов", "пузырный занос", "миома матки"], correct: "B" },
+        { number: 168, text: "Причинами плотного прикрепления плаценты являются:", answers: ["рубец на матке", "предлежание плаценты", "патология шейки матки", "аномалии развития матки", "повышение трофобластической активности"], correct: "E" },
+        { number: 169, text: "Наиболее частая причина истинного приращения плаценты:", answers: ["миома матки", "генитальный инфантилизм", "повышение протеолитической активности", "рубец на матке", "дегенеративные изменения эндометрия"], correct: "E" },
+        { number: 170, text: "Характерные проявления полного плотного прикрепления плаценты:", answers: ["боль в животе", "кровотечение", "высокое стояние дна матки", "отсутствие отделения и кровотечения", "кровотечение без отделения"], correct: "D" },
+        { number: 171, text: "Общие причины нарушения сократительной способности матки в раннем послеродовом периоде:", answers: ["дегенеративные изменения миометрия", "перенашивание", "аномалии родовой деятельности", "аномалии развития матки", "экстрагенитальные заболевания"], correct: "A" },
+        { number: 172, text: "Последовательность действий при хирургической остановке гипотонического кровотечения:", answers: ["гистерэктомия", "лапаротомия + простагландины", "перевязка наружных подвздошных", "перевязка сосудов матки", "компрессионные швы"], correct: "B" },
+        { number: 173, text: "Показания для ручного обследования полости матки в раннем послеродовом периоде:", answers: ["подозрение на разрыв матки", "задержка частей плаценты", "гипотоническое кровотечение", "аномалии развития матки", "рубец на матке"], correct: "A" },
+        { number: 174, text: "Борьба с гипотоническим кровотечением начинается:", answers: ["с утеротоников", "с ручного обследования", "с гемотрансфузии", "со шва по Би-Линчу", "с измерения АД"], correct: "A" },
+        { number: 175, text: "При кровопотере до 500 мл:", answers: ["гемотрансфузия 300 мл", "гемотрансфузия не проводится", "гемотрансфузия 500 мл", "переливание СЗП", "гемотрансфузия 200 мл"], correct: "B" },
+        { number: 176, text: "При лечении ДВС-синдрома применение гепарина противопоказано:", answers: ["в 1 стадии", "во 2 стадии", "в 3 стадии", "в 4 стадии", "во всех стадиях"], correct: "C" },
+        { number: 177, text: "На начальном этапе терапии геморрагического шока применяют:", answers: ["сердечные гликозиды", "адреналин", "бикарбонат натрия", "реополиглюкин", "глюкокортикоиды"], correct: "D" },
+        { number: 178, text: "Наружно-внутренний массаж матки:", answers: ["при гипотоническом кровотечении", "при разрыве матки", "при аномалиях прикрепления", "при аномалиях сократительной деятельности", "способствует отделению плаценты"], correct: "A" },
+        { number: 179, text: "Для лечения гипотонии матки применяют:", answers: ["аскорбиновую кислоту", "глюкозу", "метилэргометрин, окситоцин", "сульфат магния", "дексаметазон"], correct: "C" },
+        { number: 180, text: "Объем переливаемой жидкости должен превышать объем кровопотери:", answers: ["в 1,5 раза", "в 3 раза", "в 2,5 раза", "в 2 раза", "в 5 раз"], correct: "A" },
+        { number: 181, text: "Наиболее частые причины кровотечения в конце беременности:", answers: ["начавшийся выкидыш", "разрыв матки", "предлежание плаценты", "пузырный занос", "миома матки"], correct: "C" },
+        { number: 182, text: "При обнаружении матки Кувелера следует:", answers: ["ПМА", "надвлагалищная ампутация или экстирпация", "ввести сокращающие средства", "ПВПА", "выскабливание"], correct: "B" },
+        { number: 183, text: "Кесарево сечение при полном предлежании плаценты производится:", answers: ["только при живом плоде", "только в нижнем сегменте", "только при кровотечении", "только по жизненным показаниям", "в плановом порядке"], correct: "E" },
+        { number: 184, text: "Прогрессирующая преждевременная отслойка плаценты является показанием для:", answers: ["кесарева сечения", "родовозбуждения", "ампутации матки", "перевязки маточных артерий", "экстирпации матки"], correct: "A" },
+        { number: 185, text: "Показания к ампутации матки при кесаревом сечении:", answers: ["миома матки", "матка Кувелера", "предлежание плаценты", "отслойка плаценты", "гипотония матки"], correct: "B" },
+        { number: 186, text: "Объем допустимой кровопотери в родах:", answers: ["0,5% массы тела", "1% массы тела", "2% массы тела", "3% массы тела", "5% массы тела"], correct: "A" },
+        { number: 187, text: "Объем оперативного лечения перитонита после кесарева сечения:", answers: ["кольпотомия", "экстирпация матки без придатков", "экстирпация с трубами и дренирование", "надвлагалищная ампутация и дренирование", "диагностическая лапароскопия"], correct: "C" },
+        { number: 188, text: "Понятие родовые пути включает:", answers: ["малый таз", "матку и влагалище", "мышцы тазового дна", "костный таз, матку, влагалище, мышцы тазового дна", "нижний сегмент матки, влагалище"], correct: "D" },
+        { number: 189, text: "По какому размеру определяется степень сужения таза?", answers: ["наружным", "диагональной конъюгате", "анатомической конъюгате", "истинной конъюгате", "наружной конъюгате"], correct: "D" },
+        { number: 190, text: "Внутренний слой мышц тазового дна образует:", answers: ["M.Transversus Perinei Profundus", "M.Buldocavernosus", "M.Obturatorius Internus", "M.Iliacus Internus", "M.Levator Ani"], correct: "E" },
+        { number: 191, text: "Средний слой мышц тазового дна образует:", answers: ["M.Levator Ani", "M.Piriformis", "M.Psoas Major", "M.Transversus Perinei Profundus", "M.Ischiocavernosus"], correct: "D" },
+        { number: 192, text: "Наружный слой мышц тазового дна образует:", answers: ["M.Levator Ani, M.Obturatorius Internus", "M.Piriformis, M.Obturatorius Internus", "M.Iliacus Internus, M.Psoas Major", "M.Sphincter Ani Externus, M.Transversus Perinei Profundus", "M.Buldocavernosus, M.Ischiocavernosus, M.Sphincter Ani Externus, M.Transversus Perinei Superficialis"], correct: "E" },
+        { number: 193, text: "Плотным прикреплением плаценты называют:", answers: ["неглубокое врастание ворсин в миометрий", "непрочное сращение с децидуальной тканью", "прорастание ворсин в базальный слой эндометрия", "прорастание до серозной оболочки", "глубокое врастание в миометрий"], correct: "B" },
+        { number: 194, text: "Дифференциальная диагностика плотного прикрепления и приращения плаценты:", answers: ["не имеет значения", "во время ручного отделения", "приемом Креде-Лазаревича", "по объему кровопотери", "по признакам отделения"], correct: "B" },
+        { number: 195, text: "С какой целью измеряем размеры большого таза?", answers: ["судим о размерах малого таза", "судим о толщине костей", "судим о степени сужения", "все ответы не верны", "для определения толщины мягких тканей"], correct: "A" },
+        { number: 196, text: "Нормальным считается расположение плаценты:", answers: ["выше внутреннего зева на 7 см", "выше на 5 см", "выше на 3 см", "выше на 2 см", "в области внутреннего зева"], correct: "A" },
+        { number: 197, text: "Дайте определение диагональной конъюгате:", answers: ["между передне-верхними остями", "между серединой симфиза и надкрестцовой ямкой", "между передне-верхней и задне-верхней остями", "между мысом и нижним краем симфиза", "между мысом и задне-верхней остью"], correct: "D" },
+        { number: 198, text: "Чему равна истинная конъюгата, если наружная равна 20 см?", answers: ["10 см", "11 см", "12 см", "9 см", "15 см"], correct: "B" },
+        { number: 199, text: "Основные причины плотного прикрепления и приращения плаценты:", answers: ["переношенная беременность", "поздний токсикоз", "структурно-морфологические изменения эндометрия", "гипертоническая болезнь", "сахарный диабет"], correct: "C" },
+        { number: 200, text: "Полное предлежание плаценты является:", answers: ["показанием к КС при сочетании", "показанием к КС при неподготовленных путях", "показанием к КС при кровотечении", "показанием к КС при живом плоде", "абсолютным показанием к КС"], correct: "E" }
+    ];
+    
+    // ============================================
+    // ИНИЦИАЛИЗАЦИЯ И ЛОГИКА
+    // ============================================
+    
+    let userAnswers = JSON.parse(localStorage.getItem('obstetrics_userAnswers_part4') || '{}');
+    let currentQuestionId = parseInt(localStorage.getItem('obstetrics_currentQuestion_part4') || '151');
+    let selectedAnswer = null;
+    
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const cyrillicLetters = ['А', 'В', 'С', 'D', 'Е'];
+    
+    function getTotal() { return QUESTIONS_DATA.length; }
+    function getCorrectCount() { return Object.values(userAnswers).filter(v => v === true).length; }
+    
+    function updateStats() {
+        const total = getTotal();
+        const correct = getCorrectCount();
+        document.getElementById('correctCount').innerText = correct;
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('answeredCount').innerHTML = `${correct}/${total}`;
+        document.getElementById('totalInfo').innerHTML = `Всего: ${total} | Правильных: ${correct}`;
+        const percent = total ? (correct / total * 100).toFixed(1) : 0;
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressFill').innerHTML = percent + '%';
+    }
+    
+    function getQuestionById(id) {
+        return QUESTIONS_DATA.find(q => q.number === id);
+    }
+    
+    function renderQuestionsList() {
+        const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const container = document.getElementById('questionsListContainer');
+        if (!container) return;
+        
+        let html = '';
+        for (const q of QUESTIONS_DATA) {
+            const isCorrect = userAnswers[q.number] === true;
+            const isAnswered = userAnswers[q.number] !== undefined;
+            let statusClass = '';
+            let statusIcon = '';
+            if (isAnswered) {
+                statusClass = isCorrect ? 'answered-correct' : 'answered-incorrect';
+                statusIcon = isCorrect ? '✅' : '❌';
+            }
+            
+            if (searchTerm && !q.text.toLowerCase().includes(searchTerm) && !q.number.toString().includes(searchTerm)) continue;
+            
+            html += `
+                <div class="question-item ${statusClass}" onclick="showQuestion(${q.number})" data-qid="${q.number}">
+                    <span class="question-number">Вопрос ${q.number}:</span>
+                    <span class="question-status">${statusIcon}</span>
+                    <div style="margin-top: 5px; font-size: 0.85em;">${q.text.substring(0, 55)}${q.text.length > 55 ? '...' : ''}</div>
+                </div>
+            `;
+        }
+        container.innerHTML = html || '<div style="padding: 20px; text-align: center;">Вопросы не найдены</div>';
+        highlightCurrent();
+    }
+    
+    function highlightCurrent() {
+        document.querySelectorAll('.question-item').forEach(el => {
+            el.classList.remove('active');
+            if (parseInt(el.getAttribute('data-qid')) === currentQuestionId) {
+                el.classList.add('active');
+            }
+        });
+    }
+    
+    function highlightAnswers(selected, correct) {
+        document.querySelectorAll('.answer-item').forEach(el => {
+            const letter = el.getAttribute('data-letter');
+            el.classList.remove('correct-highlight', 'wrong-highlight');
+            if (letter === correct) {
+                el.classList.add('correct-highlight');
+            }
+            if (letter === selected && letter !== correct) {
+                el.classList.add('wrong-highlight');
+            }
+        });
+    }
+    
+    function renderCurrentQuestion() {
+        const q = getQuestionById(currentQuestionId);
+        if (!q) return;
+        
+        document.getElementById('questionTitle').innerHTML = `<strong>Вопрос ${q.number}:</strong> ${q.text}?`;
+        
+        const savedAnswer = localStorage.getItem(`ans_part4_${currentQuestionId}`);
+        selectedAnswer = savedAnswer || null;
+        
+        const wasAnswered = userAnswers[currentQuestionId] !== undefined;
+        
+        let answersHtml = '';
+        for (let i = 0; i < q.answers.length; i++) {
+            const letter = cyrillicLetters[i] || letters[i];
+            let additionalClass = '';
+            if (wasAnswered && selectedAnswer === letter) {
+                additionalClass = 'selected';
+            }
+            answersHtml += `
+                <li class="answer-item ${additionalClass}" onclick="selectAnswer('${letter}')" data-letter="${letter}">
+                    <span class="answer-letter">${letter}</span>
+                    <span class="answer-text">${q.answers[i]}</span>
+                </li>
+            `;
+        }
+        document.getElementById('answersList').innerHTML = answersHtml;
+        
+        if (wasAnswered && selectedAnswer) {
+            highlightAnswers(selectedAnswer, q.correct);
+            const isCorrect = (selectedAnswer === q.correct);
+            const msgDiv = document.getElementById('resultMessage');
+            if (isCorrect) {
+                msgDiv.innerHTML = '<div class="result-message correct">✅ Вы уже ответили правильно на этот вопрос!</div>';
+            } else {
+                const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
+                const correctText = q.answers[correctIdx] || '';
+                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Вы ответили неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
+            }
+        } else {
+            document.getElementById('resultMessage').innerHTML = '';
+        }
+        
+        localStorage.setItem('obstetrics_currentQuestion_part4', currentQuestionId);
+        highlightCurrent();
+    }
+    
+    function selectAnswer(letter) {
+        if (userAnswers[currentQuestionId] !== undefined) {
+            const msgDiv = document.getElementById('resultMessage');
+            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверили этот вопрос.</div>';
+            setTimeout(() => { if (msgDiv.innerHTML.includes('уже проверили')) msgDiv.innerHTML = ''; }, 2000);
+            return;
+        }
+        
+        selectedAnswer = letter;
+        localStorage.setItem(`ans_part4_${currentQuestionId}`, letter);
+        
+        document.querySelectorAll('.answer-item').forEach(el => {
+            el.classList.remove('selected');
+            if (el.getAttribute('data-letter') === letter) {
+                el.classList.add('selected');
+            }
+        });
+    }
+    
+    function checkAnswer() {
+        if (!selectedAnswer) {
+            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Выберите ответ</div>';
+            return;
+        }
+        
+        if (userAnswers[currentQuestionId] !== undefined) {
+            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверяли!</div>';
+            return;
+        }
+        
+        const q = getQuestionById(currentQuestionId);
+        const isCorrect = (selectedAnswer === q.correct);
+        
+        userAnswers[currentQuestionId] = isCorrect;
+        localStorage.setItem('obstetrics_userAnswers_part4', JSON.stringify(userAnswers));
+        
+        highlightAnswers(selectedAnswer, q.correct);
+        
+        updateStats();
+        renderQuestionsList();
+        
+        const msgDiv = document.getElementById('resultMessage');
+        if (isCorrect) {
+            msgDiv.innerHTML = '<div class="result-message correct">✅ Правильно!</div>';
+        } else {
+            const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
+            const correctText = q.answers[correctIdx] || '';
+            msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
+        }
+    }
+    
+    function nextQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx < QUESTIONS_DATA.length - 1) {
+            currentQuestionId = QUESTIONS_DATA[idx + 1].number;
+            selectedAnswer = localStorage.getItem(`ans_part4_${currentQuestionId}`) || null;
+            renderCurrentQuestion();
+        } else {
+            document.getElementById('resultMessage').innerHTML = '<div class="result-message correct">🎉 Поздравляем! Вы прошли все вопросы части 4! 🎉</div>';
+        }
+    }
+    
+    function previousQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx > 0) {
+            currentQuestionId = QUESTIONS_DATA[idx - 1].number;
+            selectedAnswer = localStorage.getItem(`ans_part4_${currentQuestionId}`) || null;
+            renderCurrentQuestion();
+        }
+    }
+    
+    function showQuestion(id) {
+        currentQuestionId = id;
+        selectedAnswer = localStorage.getItem(`ans_part4_${currentQuestionId}`) || null;
+        renderCurrentQuestion();
+        if (window.innerWidth <= 800) {
+            document.querySelector('.question-card').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    function startTest() {
+        if (QUESTIONS_DATA.length) {
+            currentQuestionId = QUESTIONS_DATA[0].number;
+            selectedAnswer = localStorage.getItem(`ans_part4_${currentQuestionId}`) || null;
+            renderCurrentQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+    
+    function showRandomQuestion() {
+        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)];
+        showQuestion(random.number);
+    }
+    
+    function resetAllProgress() {
+        if (confirm('Сбросить весь прогресс по части 4?')) {
+            userAnswers = {};
+            localStorage.removeItem('obstetrics_userAnswers_part4');
+            for (let i = 151; i <= 200; i++) {
+                localStorage.removeItem(`ans_part4_${i}`);
+            }
+            currentQuestionId = 151;
+            selectedAnswer = null;
+            renderCurrentQuestion();
+            renderQuestionsList();
+            updateStats();
+            alert('Прогресс сброшен!');
+        }
+    }
+    
+    function filterQuestions() {
+        renderQuestionsList();
+    }
+    
+    function goToPart(part) {
+        if (part === 1) window.location.href = 'part1.html';
+        if (part === 2) window.location.href = 'part2.html';
+        if (part === 3) window.location.href = 'part3.html';
+        if (part === 4) window.location.href = 'part4.html';
+        if (part === 5) window.location.href = 'part5.html';
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        updateStats();
+        renderQuestionsList();
+        renderCurrentQuestion();
+    });
+</script>
+</body>
+</html>

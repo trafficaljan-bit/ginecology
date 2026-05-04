@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Акушерство и гинекология - Тесты (Часть 8: 351-400)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #e9d7fd 0%, #c8b3f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, #4a3b8c, #7c3a9e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 1.9rem;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ede7ff;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #5e3a9e;
+            font-size: 0.85rem;
+            margin-top: 12px;
+        }
+
+        .part-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .part-link {
+            background: #f0eaff;
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4a2f7c;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .part-link:hover {
+            background: #6b46b4;
+            color: white;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+        .part-link.active {
+            background: #6b46b4;
+            color: white;
+        }
+
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            background: white;
+            border-radius: 48px;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+        }
+
+        .nav-btn {
+            background: #6c5ce7;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #5141c2;
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 330px 1fr;
+            gap: 26px;
+        }
+
+        @media (max-width: 780px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .questions-list {
+            background: white;
+            border-radius: 32px;
+            padding: 18px;
+            max-height: 75vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #e2d9ff;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .search-box:focus {
+            border-color: #8a6de9;
+            outline: none;
+        }
+
+        .question-item {
+            background: #fbfaff;
+            padding: 12px 14px;
+            margin: 8px 0;
+            border-radius: 20px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .question-item:hover {
+            background: #f1ecfe;
+            transform: translateX(4px);
+        }
+
+        .question-item.active {
+            background: #e9defe;
+            border-left-color: #6c5ce7;
+        }
+
+        .question-item.answered-correct {
+            background: #d9f0e1;
+            border-left-color: #2c9a5e;
+        }
+
+        .question-item.answered-incorrect {
+            background: #ffe3e3;
+            border-left-color: #dc2626;
+        }
+
+        .question-number {
+            font-weight: 800;
+            color: #4f3b8c;
+        }
+
+        .question-status {
+            float: right;
+            font-size: 16px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 36px;
+            padding: 28px 30px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            margin-bottom: 28px;
+        }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            background: #f8f5ff;
+            padding: 16px 20px;
+            border-radius: 28px;
+            margin-bottom: 28px;
+            border-left: 6px solid #8b6ce7;
+            line-height: 1.4;
+            color: #1e1a2f;
+        }
+
+        .answers-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .answer-item {
+            background: #f9f9ff;
+            margin: 12px 0;
+            padding: 14px 20px;
+            border-radius: 80px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 1.5px solid #e8e2ff;
+            transition: all 0.2s;
+        }
+
+        .answer-item:hover {
+            background: #ede7ff;
+            transform: translateX(8px);
+        }
+
+        .answer-letter {
+            width: 36px;
+            height: 36px;
+            background: #8b6ce7;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 18px;
+            flex-shrink: 0;
+        }
+
+        .answer-text {
+            font-size: 1rem;
+            color: #1f1a3c;
+        }
+
+        .correct-highlight {
+            background: #c8f0d9 !important;
+            border-color: #2b8c5e !important;
+            position: relative;
+        }
+
+        .correct-highlight::after {
+            content: "✓";
+            position: absolute;
+            right: 25px;
+            color: #158c4e;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .wrong-highlight {
+            background: #ffe0e0 !important;
+            border-color: #e53e3e !important;
+            position: relative;
+        }
+
+        .wrong-highlight::after {
+            content: "✗";
+            position: absolute;
+            right: 25px;
+            color: #c53030;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 26px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #6c5ce7;
+            color: white;
+            box-shadow: 0 4px 10px rgba(108,92,231,0.3);
+        }
+
+        .btn-primary:hover {
+            background: #5a4ad0;
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #a0aec0;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7e8b9e;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 34px;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeSlide 0.25s ease;
+        }
+
+        .result-message.correct {
+            background: #c6f7d9;
+            color: #145c33;
+        }
+
+        .result-message.incorrect {
+            background: #ffdfdf;
+            color: #a12222;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-panel {
+            background: white;
+            border-radius: 32px;
+            padding: 20px 20px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: #e9e2ff;
+            border-radius: 60px;
+            height: 32px;
+            overflow: hidden;
+            margin: 14px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #806bd6, #b284e6);
+            width: 0%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #2d2a44;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📖 Акушерство и гинекология</h1>
+        <p>Часть 8 — вопросы 351–400 (проверка при клике)</p>
+        <div class="badge" id="totalInfo">Загрузка статистики...</div>
+        <div class="part-navigation">
+            <a class="part-link" onclick="goToPart(1)">📘 Часть 1 (1-50)</a>
+            <a class="part-link" onclick="goToPart(2)">📗 Часть 2 (51-100)</a>
+            <a class="part-link" onclick="goToPart(3)">📙 Часть 3 (101-150)</a>
+            <a class="part-link" onclick="goToPart(4)">📕 Часть 4 (151-200)</a>
+            <a class="part-link" onclick="goToPart(5)">📔 Часть 5 (201-250)</a>
+            <a class="part-link" onclick="goToPart(6)">💠 Часть 6 (251-300)</a>
+            <a class="part-link" onclick="goToPart(7)">💎 Часть 7 (301-350)</a>
+            <a class="part-link active" onclick="goToPart(8)">🔮 Часть 8 (351-400)</a>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="resetAllProgress()">🔄 Сбросить прогресс</button>
+        <button class="nav-btn" onclick="showRandomQuestion()">🎲 Случайный вопрос</button>
+    </div>
+
+    <div class="main-content">
+        <div class="questions-list">
+            <h3 style="color:#4c3b8a; margin-bottom: 12px;">📌 Навигация (351–400)</h3>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по тексту или номеру" onkeyup="filterQuestions()">
+            <div id="questionsListContainer"></div>
+        </div>
+
+        <div>
+            <div class="question-card">
+                <div class="question-title" id="questionTitle">Загрузка вопроса...</div>
+                <ul class="answers-list" id="answersList"></ul>
+                <div id="resultMessage"></div>
+                <div class="buttons" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+                    <button class="btn btn-secondary" onclick="previousQuestion()">◀ Назад</button>
+                    <button class="btn btn-secondary" onclick="nextQuestion()">Вперёд ▶</button>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <h3>📊 Прогресс Part 8</h3>
+                <div class="stats-numbers">
+                    <span id="correctCount">0</span> / <span id="totalCount">50</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+                <p style="margin-top: 12px; font-size: 13px;">✅ Зелёный — верный ответ<br>🔴 Красный — ошибка</p>
+                <p style="font-size: 12px; background:#f0ecff; border-radius: 24px; padding: 5px;">💾 Автосохранение | Клик по варианту = проверка</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Тесты по акушерству и гинекологии (часть 8, вопросы 351-400) | Мгновенная проверка</p>
+    </div>
+</div>
+
+<script>
+    // ========== ДАННЫЕ ВОПРОСОВ 351-400 ==========
+    const QUESTIONS_DATA = [
+        { number: 351, text: "Какова общая продолжительность стремительных родов у первородящей?", answers: ["6 часов", "5 часов", "4 часа", "2 часа", "1 час"], correct: "C" },
+        { number: 352, text: "Общая продолжительность родов при быстрых родах у первородящей:", answers: ["менее 6 ч", "менее 5 ч", "менее 4 ч", "менее 2 ч", "менее 1 ч"], correct: "A" },
+        { number: 353, text: "Лечение дискоординированной родовой деятельности не включает:", answers: ["седативных", "обезболивающих", "введения утеротоников", "спазмолитиков", "перидуральной анестезии"], correct: "C" },
+        { number: 354, text: "Клиническое проявление обратного градиента при дискоординации:", answers: ["судорожные схватки", "фибрилляция матки", "гипертонус нижнего сегмента", "неравномерное сокращение половин матки", "ретракционное кольцо"], correct: "C" },
+        { number: 355, text: "При чрезмерно сильной родовой деятельности количество схваток за 10 минут:", answers: ["более 4", "более 6", "более 3", "более 5", "2-5"], correct: "B" },
+        { number: 356, text: "Сокращения матки следуют одно за другим без пауз - это:", answers: ["активная шеечная дистоция", "неравномерное сокращение", "тетания матки", "пассивная шеечная дистоция", "гипертонус нижнего сегмента"], correct: "C" },
+        { number: 357, text: "С помощью партограммы оценивается:", answers: ["состояние плода", "скорость распространения возбуждения", "готовность шейки матки", "характер родовой деятельности", "соответствие размеров"], correct: "D" },
+        { number: 358, text: "При дискоординации внутриамниотическое давление:", answers: ["повышено", "понижено", "не изменено", "зависит от толщины стенки", "зависит от степени дискоординации"], correct: "A" },
+        { number: 359, text: "Вторичная слабость, роженица утомлена, плод не страдает, вставление правильное. Что делать?", answers: ["кесарево сечение", "медикаментозный сон", "родостимуляция", "акушерские щипцы", "плодоразрушающая операция"], correct: "B" },
+        { number: 360, text: "Показание для обезболивающих в первом периоде родов:", answers: ["раскрытие до 4 см", "слабость", "дискоординация", "отсутствие пузыря", "по желанию"], correct: "C" },
+        { number: 361, text: "При вторичной слабости количество схваток за 10 минут:", answers: ["5 и менее", "4 и менее", "2 и менее", "2-4", "1"], correct: "C" },
+        { number: 362, text: "Продолжительность патологического прелиминарного периода:", answers: ["2-3 ч", "3-4 ч", "4-6 ч", "6-8 ч", "более 10 ч"], correct: "E" },
+        { number: 363, text: "Механизм адаптации при дискоординации:", answers: ["повышение гестагенов", "уменьшение кровоснабжения", "несвоевременное излитие вод", "повышение норадреналина", "повышение эстрогенов"], correct: "D" },
+        { number: 364, text: "При слабости интенсивность схваток (мм.рт.ст.):", answers: ["ниже 20", "ниже 30", "ниже 40", "ниже 50", "ниже 60"], correct: "B" },
+        { number: 365, text: "1 период 15 ч, открытие 5-6 см, края толстые, головка малым сегментом. Показано:", answers: ["кесарево сечение", "акушерские щипцы", "в/в простагландины", "насечки на шейке + простагландины", "плодоразрушающая операция"], correct: "D" },
+        { number: 366, text: "Дистоция шейки матки это:", answers: ["ригидность из-за рубцов", "ригидность воспалительная", "угрожающий разрыв шейки", "судорожные схватки", "нарушение крово-лимфообращения"], correct: "E" },
+        { number: 367, text: "Для лечения слабости родовой деятельности применяют:", answers: ["эстрогены", "спазмолитики", "утеротонические препараты", "гестагены", "обезболивающие"], correct: "C" },
+        { number: 368, text: "Для патологического прелиминарного периода характерны схватки:", answers: ["нерегулярные, слабые", "нерегулярные, безболезненные", "регулярные, слабые", "нерегулярные, болезненные 1-6 ч", "нерегулярные, болезненные >6 ч"], correct: "E" },
+        { number: 369, text: "Задний вид лицевого вставления, головка во II плоскости. Тактика:", answers: ["кесарево сечение", "плодоразрушающая", "стимуляция", "акушерские щипцы", "вакуум-экстрактор"], correct: "D" },
+        { number: 370, text: "Родовая опухоль в области большого родничка возникает при:", answers: ["лицевом вставлении", "асинклитическом", "лобном вставлении", "затылочном вставлении", "передне-головном вставлении"], correct: "E" },
+        { number: 371, text: "Проводная точка при лицевом предлежании:", answers: ["подъязычная кость", "подбородок", "край большого родничка", "верхняя челюсть", "нос"], correct: "B" },
+        { number: 372, text: "При асинклитизме Негеле:", answers: ["малый родничок на равном расстоянии", "стреловидный шов на равном расстоянии", "стреловидный шов отклонен к лону", "большой родничок по оси", "стреловидный шов отклонен к мысу"], correct: "C" },
+        { number: 373, text: "При асинклитизме Литцмана:", answers: ["малый родничок на равном расстоянии", "стреловидный шов отклонен к симфизу", "стреловидный шов отклонен к мысу", "большой родничок по оси", "стреловидный шов отклонен к лону"], correct: "B" },
+        { number: 374, text: "При лицевом предлежании самостоятельные роды возможны:", answers: ["при переднем виде", "при заднем виде", "при переднем и заднем", "невозможны", "при асинклитическом вставлении"], correct: "A" },
+        { number: 375, text: "Частое осложнение в первом периоде при многоплодии:", answers: ["ПОНРП", "слабость родовой деятельности", "асфиксия плода", "чрезмерная родовая деятельность", "родовые травмы"], correct: "B" },
+        { number: 376, text: "Роды через естественные пути при лобном предлежании:", answers: ["возможны", "невозможны", "индивидуально", "зависит от массы плода", "зависит от размеров таза"], correct: "B" },
+        { number: 377, text: "Чем характеризуется угрожающий разрыв промежности?", answers: ["перерастяжением", "гиперемией", "синюшностью, отеком, побледнением", "кровянистыми выделениями", "кровотечением"], correct: "C" },
+        { number: 378, text: "Кровянистые выделения при поперечном положении в периоде изгнания говорят о:", answers: ["ПОНРП", "начавшемся разрыве шейки", "начавшемся разрыве матки", "угрозе разрыва матки", "разрыве стенки влагалища"], correct: "C" },
+        { number: 379, text: "Лохии это:", answers: ["послеродовые выделения", "раневой секрет матки", "отделение децидуальной оболочки", "выделение остатков плаценты", "выделение оболочек"], correct: "B" },
+        { number: 380, text: "При каком вставлении головка рождается прямым размером?", answers: ["передний вид затылочного", "задний вид затылочного", "лобном", "переднеголовном", "поперечном"], correct: "D" },
+        { number: 381, text: "Диагноз переднеголовного вставления ставят по:", answers: ["большой родничок ниже малого", "малому родничку", "заднему углу большого родничка", "стреловидному шву", "ламбдовидному шву"], correct: "A" },
+        { number: 382, text: "Особенность родов при переднеголовном предлежании:", answers: ["длительный 1 период", "длительный 2 период", "длительный 3 период", "быстрые роды", "первым рождается малый родничок"], correct: "B" },
+        { number: 383, text: "При переднеголовном вставлении:", answers: ["во входе - сгибание", "поворот затылком кпереди", "прорезывание со сгибанием", "сгибание, затем разгибание", "головка рождается прямым размером"], correct: "E" },
+        { number: 384, text: "Средний объем околоплодных вод в конце беременности:", answers: ["100 мл", "500 мл", "800 мл", "1500 мл", "300 мл"], correct: "C" },
+        { number: 385, text: "При каком предлежании головка проходит полость таза большим косым размером?", answers: ["передний вид затылочного", "задний вид затылочного", "переднеголовном", "лобном", "лицевом"], correct: "D" },
+        { number: 386, text: "Чувство тяжести внизу живота, скудные слизистые выделения в конце беременности - это:", answers: ["начало родов", "предвестники родов", "преждевременное прерывание", "осложнение", "излитие вод"], correct: "B" },
+        { number: 387, text: "Состояние готовности к родам характеризуется:", answers: ["созревающей шейкой матки", "4 степенью зрелости и + окситоциновым тестом", "- окситоциновым тестом", "незрелостью шейки", "1 степенью зрелости"], correct: "A" },
+        { number: 388, text: "Абсолютная короткость пуповины - это длина:", answers: ["50 см", "37 см", "40 см", "48 см", "5 см"], correct: "B" },
+        { number: 389, text: "Наиболее частая форма хронического гломерулонефрита у беременных:", answers: ["латентная", "смешанная", "гипертоническая", "с выраженной симптоматикой", "нефротическая"], correct: "A" },
+        { number: 390, text: "Почему в конце беременности уменьшается высота дна матки?", answers: ["всасывание вод", "опускание предлежащей части", "сокращение матки", "уменьшение массы плода", "уменьшение объема матки"], correct: "B" },
+        { number: 391, text: "Масса матки после 3 периода родов около:", answers: ["500-600 г", "700-800 г", "1000-1200 г", "1400-1600 г", "100-110 г"], correct: "C" },
+        { number: 392, text: "В каком слое происходит отслойка плаценты?", answers: ["губчатом", "компактном", "мышечном", "базальном", "серозном"], correct: "A" },
+        { number: 393, text: "Операция Рейно-Порро - это:", answers: ["кесарево сечение", "кесарево при рубце", "кесарево с удалением матки", "влагалищное кесарево", "кесарево с продольным разрезом"], correct: "C" },
+        { number: 394, text: "Что не характерно для 28-недельной беременности?", answers: ["плод жизнеспособен", "вес 1000 г", "Л/С <2:1", "отсутствие 2 типа легочных клеток", "вес плода 600 г"], correct: "E" },
+        { number: 395, text: "Какой симптом не требует экстренной помощи беременной?", answers: ["кровотечение", "внезапная головная боль", "отек лодыжек и ступней", "затуманенность зрения", "выделение жидкости"], correct: "C" },
+        { number: 396, text: "При каком вставлении бывает «башенная» форма головы?", answers: ["лицевом", "лобном", "затылочном", "передне-головном", "ягодичном"], correct: "D" },
+        { number: 397, text: "Точка фиксации при переднем виде лицевого предлежания:", answers: ["подъязычная кость", "подзатылочная ямка", "край большого родничка", "верхняя челюсть", "нижняя челюсть"], correct: "A" },
+        { number: 398, text: "Влагалищно: лобный шов, с одной стороны большой родничок, с другой - корень носа. Это:", answers: ["затылочное", "передне-головное", "лицевое", "лобное", "ягодичное"], correct: "D" },
+        { number: 399, text: "Осложнение во 2 периоде, характерное для лобного вставления:", answers: ["вторичная слабость", "несвоевременное излитие", "клинический узкий таз", "гипоксия плода", "выпадение пуповины"], correct: "C" },
+        { number: 400, text: "Как меняется сердцебиение плода под влиянием потуг?", answers: ["не меняется", "резко учащается", "замедляется на 10-15 уд/мин", "становится аритмичным", "исчезает"], correct: "C" }
+    ];
+
+    let userAnswers = JSON.parse(localStorage.getItem('obstetrics_userAnswers_part8') || '{}');
+    let currentQuestionId = parseInt(localStorage.getItem('obstetrics_currentQuestion_part8') || '351');
+
+    function getTotal() { return QUESTIONS_DATA.length; }
+    function getCorrectCount() { return Object.values(userAnswers).filter(v => v === true).length; }
+
+    function updateStatsUI() {
+        const total = getTotal();
+        const correct = getCorrectCount();
+        document.getElementById('correctCount').innerText = correct;
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('totalInfo').innerHTML = `✅ Всего: ${total} | Правильных: ${correct}`;
+        const percent = total ? (correct / total * 100).toFixed(1) : 0;
+        const fillEl = document.getElementById('progressFill');
+        fillEl.style.width = percent + '%';
+        fillEl.innerHTML = percent + '%';
+    }
+
+    function getQuestionById(id) { return QUESTIONS_DATA.find(q => q.number === id); }
+
+    function checkAndSaveAnswer(selectedLetter) {
+        const q = getQuestionById(currentQuestionId);
+        if (!q) return;
+        const isCorrect = (selectedLetter === q.correct);
+        userAnswers[currentQuestionId] = isCorrect;
+        localStorage.setItem('obstetrics_userAnswers_part8', JSON.stringify(userAnswers));
+        localStorage.setItem(`selected_for_${currentQuestionId}`, selectedLetter);
+        renderCurrentQuestion();
+        updateStatsUI();
+        renderQuestionsList();
+    }
+
+    function renderCurrentQuestion() {
+        const q = getQuestionById(currentQuestionId);
+        if (!q) return;
+        document.getElementById('questionTitle').innerHTML = `<strong>🔹 Вопрос ${q.number}</strong><br>${q.text}`;
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        let answersHtml = '';
+        for (let i = 0; i < q.answers.length; i++) {
+            const letter = letters[i];
+            let additionalClass = '';
+            if (userAnswers[q.number] !== undefined) {
+                if (letter === q.correct) {
+                    additionalClass = 'correct-highlight';
+                } else {
+                    const userSelected = localStorage.getItem(`selected_for_${q.number}`);
+                    if (userSelected === letter) {
+                        additionalClass = 'wrong-highlight';
+                    }
+                }
+            }
+            answersHtml += `<li class="answer-item ${additionalClass}" data-letter="${letter}" onclick="checkAndSaveAnswer('${letter}')">
+                                <span class="answer-letter">${letter}</span>
+                                <span class="answer-text">${q.answers[i]}</span>
+                            </li>`;
+        }
+        document.getElementById('answersList').innerHTML = answersHtml;
+        const msgDiv = document.getElementById('resultMessage');
+        if (userAnswers[q.number] !== undefined) {
+            if (userAnswers[q.number] === true) {
+                msgDiv.innerHTML = '<div class="result-message correct">✅ Верно! Правильный ответ.</div>';
+            } else {
+                const correctLetter = q.correct;
+                const correctText = q.answers[letters.indexOf(correctLetter)];
+                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неправильно. Верный ответ: ${correctLetter}) ${correctText}</div>`;
+            }
+        } else {
+            msgDiv.innerHTML = '';
+        }
+        updateStatsUI();
+        renderQuestionsList();
+    }
+
+    window.checkAndSaveAnswer = checkAndSaveAnswer;
+
+    function nextQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx < QUESTIONS_DATA.length - 1) {
+            currentQuestionId = QUESTIONS_DATA[idx+1].number;
+            localStorage.setItem('obstetrics_currentQuestion_part8', currentQuestionId);
+            renderCurrentQuestion();
+        } else {
+            alert("Вы дошли до последнего вопроса (400).");
+        }
+    }
+
+    function previousQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx > 0) {
+            currentQuestionId = QUESTIONS_DATA[idx-1].number;
+            localStorage.setItem('obstetrics_currentQuestion_part8', currentQuestionId);
+            renderCurrentQuestion();
+        } else {
+            alert("Это первый вопрос части 8.");
+        }
+    }
+
+    function showQuestion(num) {
+        currentQuestionId = num;
+        localStorage.setItem('obstetrics_currentQuestion_part8', currentQuestionId);
+        renderCurrentQuestion();
+    }
+
+    function renderQuestionsList() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const container = document.getElementById('questionsListContainer');
+        let html = '';
+        for (let q of QUESTIONS_DATA) {
+            let statusClass = '', statusIcon = '';
+            if (userAnswers[q.number] === true) { statusClass = 'answered-correct'; statusIcon = '✅'; }
+            else if (userAnswers[q.number] === false) { statusClass = 'answered-incorrect'; statusIcon = '❌'; }
+            if (searchTerm && !q.text.toLowerCase().includes(searchTerm) && !q.number.toString().includes(searchTerm)) continue;
+            html += `<div class="question-item ${statusClass}" onclick="showQuestion(${q.number})" data-qid="${q.number}">
+                        <span class="question-number">Вопрос ${q.number}</span>
+                        <span class="question-status">${statusIcon}</span>
+                        <div style="margin-top:6px; font-size:0.8rem;">${q.text.substring(0, 70)}${q.text.length>70?'...':''}</div>
+                    </div>`;
+        }
+        container.innerHTML = html || '<div style="padding:20px">Нет результатов</div>';
+        document.querySelectorAll('.question-item').forEach(el => {
+            if (parseInt(el.getAttribute('data-qid')) === currentQuestionId) {
+                el.classList.add('active');
+            } else {
+                el.classList.remove('active');
+            }
+        });
+    }
+
+    function resetAllProgress() {
+        if (confirm('Сбросить ВСЕ ответы части 8?')) {
+            userAnswers = {};
+            localStorage.setItem('obstetrics_userAnswers_part8', '{}');
+            for (let q of QUESTIONS_DATA) { localStorage.removeItem(`selected_for_${q.number}`); }
+            currentQuestionId = 351;
+            localStorage.setItem('obstetrics_currentQuestion_part8', '351');
+            renderCurrentQuestion();
+            updateStatsUI();
+            renderQuestionsList();
+        }
+    }
+    
+    function showRandomQuestion() {
+        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)].number;
+        showQuestion(random);
+    }
+    
+    function filterQuestions() { renderQuestionsList(); }
+    function goToPart(part) { alert(`Переход к части ${part} доступен в главном меню.`); }
+
+    window.onload = () => {
+        renderCurrentQuestion();
+        updateStatsUI();
+        renderQuestionsList();
+    };
+</script>
+</body>
+</html>

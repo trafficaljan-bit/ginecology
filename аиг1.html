@@ -2,27 +2,27 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тесты по акушерству и гинекологии - Вопросы 1-50</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Акушерство и гинекология: тесты 1-50 (автопроверка)</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1300px;
             margin: 0 auto;
         }
-        
+
         /* Header */
         .header {
             background: white;
@@ -32,17 +32,17 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
         }
-        
+
         .header h1 {
             color: #667eea;
             font-size: 1.8em;
             margin-bottom: 10px;
         }
-        
+
         .header p {
             color: #666;
         }
-        
+
         .header .badge {
             display: inline-block;
             background: #667eea20;
@@ -52,7 +52,7 @@
             color: #667eea;
             font-weight: bold;
         }
-        
+
         /* Navigation */
         .nav-bar {
             background: white;
@@ -65,7 +65,7 @@
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .nav-btn {
             background: #667eea;
             color: white;
@@ -74,28 +74,29 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s;
         }
-        
+
         .nav-btn:hover {
             background: #764ba2;
             transform: translateY(-2px);
         }
-        
+
         /* Main layout */
         .main-content {
             display: grid;
             grid-template-columns: 320px 1fr;
             gap: 25px;
         }
-        
+
         @media (max-width: 800px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
         }
-        
-        /* Questions list */
+
+        /* Вопросы список */
         .questions-list {
             background: white;
             border-radius: 20px;
@@ -104,14 +105,14 @@
             overflow-y: auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .questions-list h3 {
             color: #667eea;
             margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
         }
-        
+
         .search-box {
             width: 100%;
             padding: 10px 15px;
@@ -120,12 +121,12 @@
             border-radius: 30px;
             font-size: 14px;
         }
-        
+
         .search-box:focus {
             outline: none;
             border-color: #667eea;
         }
-        
+
         .question-item {
             padding: 12px 15px;
             margin: 5px 0;
@@ -135,38 +136,38 @@
             border-left: 3px solid transparent;
             transition: all 0.2s;
         }
-        
+
         .question-item:hover {
             background: #e9ecef;
             transform: translateX(5px);
         }
-        
+
         .question-item.active {
             background: #667eea20;
             border-left-color: #667eea;
         }
-        
+
         .question-item.answered-correct {
             background: #d4edda;
             border-left-color: #28a745;
         }
-        
+
         .question-item.answered-incorrect {
             background: #f8d7da;
             border-left-color: #dc3545;
         }
-        
+
         .question-number {
             font-weight: bold;
             color: #667eea;
         }
-        
+
         .question-status {
             float: right;
             font-size: 12px;
         }
-        
-        /* Question card */
+
+        /* Карточка вопроса */
         .question-card {
             background: white;
             border-radius: 20px;
@@ -174,7 +175,7 @@
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        
+
         .question-title {
             font-size: 1.2em;
             margin-bottom: 25px;
@@ -182,7 +183,7 @@
             border-bottom: 2px solid #667eea;
             line-height: 1.4;
         }
-        
+
         .question-title strong {
             color: #667eea;
             background: #667eea10;
@@ -191,12 +192,12 @@
             display: inline-block;
             margin-right: 10px;
         }
-        
+
         .answers-list {
             list-style: none;
             margin-bottom: 25px;
         }
-        
+
         .answer-item {
             padding: 14px 18px;
             margin: 10px 0;
@@ -207,25 +208,26 @@
             display: flex;
             align-items: center;
             transition: all 0.2s;
+            position: relative;
         }
-        
-        .answer-item:hover {
+
+        /* При hover на ещё неотвеченном вопросе */
+        .answer-item:not(.disabled-answer):hover {
             background: #e9ecef;
             transform: translateX(8px);
         }
-        
+
         .answer-item.selected {
             background: #667eea20;
             border-color: #667eea;
         }
-        
-        /* Стили для подсветки ответов после проверки */
+
+        /* Стили подсветки после проверки */
         .answer-item.correct-highlight {
             background: #d4edda !important;
             border-color: #28a745 !important;
-            position: relative;
         }
-        
+
         .answer-item.correct-highlight::after {
             content: "✓";
             position: absolute;
@@ -234,13 +236,12 @@
             font-size: 20px;
             font-weight: bold;
         }
-        
+
         .answer-item.wrong-highlight {
             background: #f8d7da !important;
             border-color: #dc3545 !important;
-            position: relative;
         }
-        
+
         .answer-item.wrong-highlight::after {
             content: "✗";
             position: absolute;
@@ -249,7 +250,13 @@
             font-size: 20px;
             font-weight: bold;
         }
-        
+
+        /* Заблокированный вариант (после ответа нельзя кликать) */
+        .answer-item.disabled-answer {
+            cursor: default;
+            opacity: 0.9;
+        }
+
         .answer-letter {
             width: 34px;
             height: 34px;
@@ -263,19 +270,19 @@
             font-weight: bold;
             flex-shrink: 0;
         }
-        
+
         .answer-text {
             color: #444;
         }
-        
-        /* Buttons */
+
+        /* Блок навигации (без кнопки Проверить) */
         .buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .btn {
             padding: 12px 25px;
             border: none;
@@ -285,28 +292,28 @@
             font-weight: 500;
             transition: all 0.3s;
         }
-        
+
         .btn-primary {
             background: #667eea;
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: #764ba2;
             transform: translateY(-2px);
         }
-        
+
         .btn-secondary {
             background: #6c757d;
             color: white;
         }
-        
+
         .btn-secondary:hover {
             background: #5a6268;
             transform: translateY(-2px);
         }
-        
-        /* Result message */
+
+        /* Результат теперь показывает только при автоответе, но тоже красиво */
         .result-message {
             margin-top: 20px;
             padding: 15px;
@@ -315,23 +322,18 @@
             font-weight: bold;
             animation: fadeIn 0.3s;
         }
-        
+
         .result-message.correct {
             background: #d4edda;
             color: #155724;
         }
-        
+
         .result-message.incorrect {
             background: #f8d7da;
             color: #721c24;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Stats */
+
+        /* Панель статистики */
         .stats-panel {
             background: white;
             border-radius: 20px;
@@ -339,23 +341,23 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .stats-panel h3 {
             color: #667eea;
             margin-bottom: 15px;
         }
-        
+
         .stats-numbers {
             font-size: 2em;
             font-weight: bold;
             margin: 10px 0;
         }
-        
+
         .stats-numbers span {
             color: #667eea;
             font-size: 2.5em;
         }
-        
+
         .progress-bar {
             background: #e0e0e0;
             border-radius: 30px;
@@ -363,7 +365,7 @@
             overflow: hidden;
             margin: 15px 0;
         }
-        
+
         .progress-fill {
             background: linear-gradient(90deg, #667eea, #764ba2);
             height: 100%;
@@ -374,27 +376,17 @@
             font-weight: bold;
             transition: width 0.3s;
         }
-        
+
         .footer {
             text-align: center;
             margin-top: 30px;
             color: rgba(255,255,255,0.8);
             font-size: 0.85em;
         }
-        
-        /* Scrollbar */
-        .questions-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .questions-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .questions-list::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 10px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -402,26 +394,26 @@
 <div class="container">
     <div class="header">
         <h1>📚 Тесты по акушерству и гинекологии</h1>
-        <p>Часть 1 | Вопросы 1-50 | При проверке ответы подсвечиваются цветом</p>
+        <p>Часть 1 | Вопросы 1-50 | ✅ Автоматическая проверка при выборе ответа</p>
         <div class="badge" id="totalInfo">Загрузка...</div>
     </div>
-    
+
     <div class="nav-bar">
         <button class="nav-btn" onclick="startTest()">📝 Начать тестирование</button>
         <button class="nav-btn" onclick="resetAllProgress()">🔄 Сбросить прогресс</button>
         <button class="nav-btn" onclick="showRandomQuestion()">🎲 Случайный вопрос</button>
     </div>
-    
+
     <div class="main-content">
         <div class="questions-list">
             <h3>
                 📋 Вопросы
                 <span id="answeredCount">0/0</span>
             </h3>
-            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск вопроса..." onkeyup="filterQuestions()">
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по номеру или тексту..." onkeyup="filterQuestions()">
             <div id="questionsListContainer"></div>
         </div>
-        
+
         <div>
             <div class="question-card">
                 <div class="question-title" id="questionTitle"></div>
@@ -429,11 +421,10 @@
                 <div id="resultMessage"></div>
                 <div class="buttons">
                     <button class="btn btn-secondary" onclick="previousQuestion()">◀ Предыдущий</button>
-                    <button class="btn btn-primary" onclick="checkAnswer()">✅ Проверить ответ</button>
                     <button class="btn btn-secondary" onclick="nextQuestion()">Следующий ▶</button>
                 </div>
             </div>
-            
+
             <div class="stats-panel">
                 <h3>📊 Ваш прогресс</h3>
                 <div class="stats-numbers">
@@ -443,24 +434,23 @@
                     <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
                 </div>
                 <p style="margin-top: 10px; color: #666; font-size: 12px;">
-                    ✅ Правильные ответы сохраняются в браузере
+                    ✅ При выборе варианта — моментальная проверка. Повторный ответ невозможен.
                 </p>
                 <p style="margin-top: 5px; color: #888; font-size: 11px;">
-                    🟢 Зеленый - правильный ответ | 🔴 Красный - неправильный
+                    🟢 Зеленый — правильный ответ | 🔴 Красный — неправильный выбранный ответ
                 </p>
             </div>
         </div>
     </div>
     <div class="footer">
-        <p>Тесты по акушерству и гинекологии | Вопросы 1-50 | Прогресс сохраняется автоматически</p>
+        <p>Акушерство и гинекология | Вопросы 1-50 | Прогресс сохраняется автоматически</p>
     </div>
 </div>
 
 <script>
-    // ============================================
-    // ПОЛНАЯ БАЗА ВОПРОСОВ 1-50
-    // ============================================
-    
+    // --------------------------------------------------------------
+    // ПОЛНЫЙ СПИСОК ВОПРОСОВ 1-50 (согласно заданию)
+    // --------------------------------------------------------------
     const QUESTIONS_DATA = [
         { number: 1, text: "Что определяют третьим приемом Леопольда?", answers: ["позицию плода", "уровень стояния дна матки", "вид плода", "предлежащую часть", "положения плода"], correct: "D" },
         { number: 2, text: "Что определяют вторым приемом наружного акушерского исследования?", answers: ["высоту стояния дна матки", "предлежащую часть", "мелкие части плода и спинку", "уровень стояния предлежащей части", "вид позиция плода"], correct: "E" },
@@ -513,17 +503,12 @@
         { number: 49, text: "В каком состоянии вступает головка во вход в малый таз при общеравномерносуженном тазе?", answers: ["при незначительном сгибании", "при умеренном сгибании", "при умеренном разгибании", "при максимальном сгибании", "при дополнительном сгибании"], correct: "B" },
         { number: 50, text: "Какому типу акушерских щипцов дано предпочтение в нашей стране?", answers: ["Симпсона-Феноменова", "Лазаревича", "Негеле", "Пальфина", "классическому"], correct: "A" }
     ];
-    
-    // ============================================
-    // ИНИЦИАЛИЗАЦИЯ И ЛОГИКА
-    // ============================================
-    
-    let userAnswers = JSON.parse(localStorage.getItem('obstetrics_userAnswers') || '{}');
+
+    // --------------------- ЛОГИКА -------------------------
+    let userAnswers = JSON.parse(localStorage.getItem('obstetrics_userAnswers') || '{}');   // { number: true/false }
     let currentQuestionId = parseInt(localStorage.getItem('obstetrics_currentQuestion') || '1');
-    let selectedAnswer = null;
-    let isAnswerChecked = false; // Флаг, был ли проверен ответ на текущем вопросе
     
-    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const lettersMapping = ['A', 'B', 'C', 'D', 'E'];
     const cyrillicLetters = ['А', 'В', 'С', 'D', 'Е'];
     
     function getTotal() { return QUESTIONS_DATA.length; }
@@ -545,11 +530,191 @@
         return QUESTIONS_DATA.find(q => q.number === id);
     }
     
+    // Автоматическая проверка выбранного ответа (действие при клике)
+    function autoCheckAndSave(selectedLetter, questionObj) {
+        // Если уже есть ответ на этот вопрос — блокируем повторные попытки
+        if (userAnswers[questionObj.number] !== undefined) {
+            // Показываем краткое уведомление, что уже отвечено
+            const msgDiv = document.getElementById('resultMessage');
+            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже ответили на этот вопрос. Сбросьте прогресс, чтобы отвечать заново.</div>';
+            setTimeout(() => {
+                if (msgDiv.innerHTML.includes("уже ответили")) msgDiv.innerHTML = '';
+            }, 1800);
+            return false;
+        }
+        
+        const isCorrect = (selectedLetter === questionObj.correct);
+        // Сохраняем результат
+        userAnswers[questionObj.number] = isCorrect;
+        localStorage.setItem('obstetrics_userAnswers', JSON.stringify(userAnswers));
+        
+        // Обновляем интерфейс: подсветка, список, сообщение, статистика
+        highlightAnswersOnCard(selectedLetter, questionObj.correct);
+        updateStats();
+        renderQuestionsList();      // Обновить цветовую индикацию слева
+        // Показать сообщение с правильным ответом
+        const correctIdx = cyrillicLetters.indexOf(questionObj.correct) !== -1 ? cyrillicLetters.indexOf(questionObj.correct) : lettersMapping.indexOf(questionObj.correct);
+        const correctText = questionObj.answers[correctIdx] || '';
+        const msgDiv = document.getElementById('resultMessage');
+        if (isCorrect) {
+            msgDiv.innerHTML = `<div class="result-message correct">✅ Верно! Правильный ответ: ${questionObj.correct} - ${correctText}</div>`;
+        } else {
+            msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неверно. Правильный ответ: ${questionObj.correct} - ${correctText}</div>`;
+        }
+        // Дополнительно: заблокировать дальнейшие клики на ответах данного вопроса
+        disableAnswersOnCurrentCard();
+        return true;
+    }
+    
+    function disableAnswersOnCurrentCard() {
+        document.querySelectorAll('.answer-item').forEach(el => {
+            el.style.pointerEvents = 'none';
+            el.classList.add('disabled-answer');
+        });
+    }
+    
+    // Подсветка на текущей карточке
+    function highlightAnswersOnCard(selected, correctLetter) {
+        document.querySelectorAll('.answer-item').forEach(el => {
+            const letter = el.getAttribute('data-letter');
+            if (letter === correctLetter) {
+                el.classList.add('correct-highlight');
+            }
+            if (letter === selected && letter !== correctLetter) {
+                el.classList.add('wrong-highlight');
+            }
+        });
+    }
+    
+    function renderCurrentQuestion() {
+        const q = getQuestionById(currentQuestionId);
+        if (!q) return;
+        
+        document.getElementById('questionTitle').innerHTML = `<strong>Вопрос ${q.number}:</strong> ${q.text}?`;
+        
+        const wasAnswered = (userAnswers[q.number] !== undefined);
+        const savedSelected = localStorage.getItem(`ans_tmp_${q.number}`); // для восстановления выбора перед автоответом не нужно, но сохраним стиль
+        
+        let answersHtml = '';
+        for (let i = 0; i < q.answers.length; i++) {
+            const letterDisplay = cyrillicLetters[i] || lettersMapping[i];
+            const letterValue = lettersMapping[i];
+            answersHtml += `
+                <li class="answer-item" data-letter="${letterValue}" onclick="handleAnswerClick('${letterValue}', ${q.number})">
+                    <span class="answer-letter">${letterDisplay}</span>
+                    <span class="answer-text">${q.answers[i]}</span>
+                </li>
+            `;
+        }
+        document.getElementById('answersList').innerHTML = answersHtml;
+        
+        // Если вопрос уже был отвечен, показать подсветку и заблокировать клики
+        if (wasAnswered) {
+            const isCorrectAnswer = userAnswers[q.number] === true;
+            // нужно узнать, какой вариант был выбран ранее
+            let selectedLetter = null;
+            // Восстановим из временного сохранения или поищем по логике: если в userAnswers есть true/false, но букву храним отдельно
+            let storedLetter = localStorage.getItem(`selected_letter_${q.number}`);
+            if (storedLetter) selectedLetter = storedLetter;
+            if (!selectedLetter) {
+                // просто заглушка: для подсветки правильного ответа используем correct
+                selectedLetter = q.correct;
+            }
+            highlightAnswersOnCard(selectedLetter, q.correct);
+            disableAnswersOnCurrentCard();
+            // Показываем сообщение о статусе
+            const msgDiv = document.getElementById('resultMessage');
+            const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : lettersMapping.indexOf(q.correct);
+            const correctText = q.answers[correctIdx] || '';
+            if (isCorrectAnswer) {
+                msgDiv.innerHTML = `<div class="result-message correct">✅ На этот вопрос дан верный ответ (${q.correct} - ${correctText})</div>`;
+            } else {
+                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Вы ответили неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
+            }
+        } else {
+            document.getElementById('resultMessage').innerHTML = '';
+        }
+        highlightCurrent();
+    }
+    
+    // Обработчик клика по варианту – мгновенная проверка
+    window.handleAnswerClick = function(letter, qNumber) {
+        const question = getQuestionById(qNumber);
+        if (!question) return;
+        // если уже отвечено, запрещаем
+        if (userAnswers[question.number] !== undefined) {
+            const msgDiv = document.getElementById('resultMessage');
+            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вопрос уже решён. Сбросьте прогресс, чтобы ответить заново.</div>';
+            setTimeout(() => { if (msgDiv.innerHTML.includes("уже решён")) msgDiv.innerHTML = ''; }, 1500);
+            return;
+        }
+        // Сохраняем выбранную букву для корректной подсветки
+        localStorage.setItem(`selected_letter_${question.number}`, letter);
+        autoCheckAndSave(letter, question);
+    };
+    
+    function nextQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx < QUESTIONS_DATA.length - 1) {
+            currentQuestionId = QUESTIONS_DATA[idx + 1].number;
+            renderCurrentQuestion();
+        } else {
+            document.getElementById('resultMessage').innerHTML = '<div class="result-message correct">🎉 Вы завершили все 50 вопросов! 🎉</div>';
+        }
+        localStorage.setItem('obstetrics_currentQuestion', currentQuestionId);
+        highlightCurrent();
+    }
+    
+    function previousQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx > 0) {
+            currentQuestionId = QUESTIONS_DATA[idx - 1].number;
+            renderCurrentQuestion();
+        }
+        localStorage.setItem('obstetrics_currentQuestion', currentQuestionId);
+        highlightCurrent();
+    }
+    
+    function showQuestion(id) {
+        currentQuestionId = id;
+        renderCurrentQuestion();
+        if (window.innerWidth <= 800) document.querySelector('.question-card')?.scrollIntoView({ behavior: 'smooth' });
+        localStorage.setItem('obstetrics_currentQuestion', currentQuestionId);
+    }
+    
+    function startTest() {
+        if (QUESTIONS_DATA.length) {
+            currentQuestionId = QUESTIONS_DATA[0].number;
+            renderCurrentQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+    
+    function showRandomQuestion() {
+        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)];
+        showQuestion(random.number);
+    }
+    
+    function resetAllProgress() {
+        if (confirm('Сбросить ВЕСЬ прогресс? Все ответы будут удалены, можно будет отвечать заново.')) {
+            userAnswers = {};
+            localStorage.removeItem('obstetrics_userAnswers');
+            for (let i = 1; i <= 50; i++) {
+                localStorage.removeItem(`selected_letter_${i}`);
+                localStorage.removeItem(`ans_tmp_${i}`);
+            }
+            currentQuestionId = 1;
+            renderCurrentQuestion();
+            renderQuestionsList();
+            updateStats();
+            alert('Прогресс полностью сброшен. Можете отвечать на вопросы заново!');
+        }
+    }
+    
     function renderQuestionsList() {
         const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
         const container = document.getElementById('questionsListContainer');
         if (!container) return;
-        
         let html = '';
         for (const q of QUESTIONS_DATA) {
             const isCorrect = userAnswers[q.number] === true;
@@ -560,9 +725,7 @@
                 statusClass = isCorrect ? 'answered-correct' : 'answered-incorrect';
                 statusIcon = isCorrect ? '✅' : '❌';
             }
-            
             if (searchTerm && !q.text.toLowerCase().includes(searchTerm) && !q.number.toString().includes(searchTerm)) continue;
-            
             html += `
                 <div class="question-item ${statusClass}" onclick="showQuestion(${q.number})" data-qid="${q.number}">
                     <span class="question-number">Вопрос ${q.number}:</span>
@@ -571,7 +734,7 @@
                 </div>
             `;
         }
-        container.innerHTML = html || '<div style="padding: 20px; text-align: center;">Вопросы не найдены</div>';
+        container.innerHTML = html || '<div style="padding:20px;text-align:center;">Ничего не найдено</div>';
         highlightCurrent();
     }
     
@@ -584,208 +747,8 @@
         });
     }
     
-    // Очистить подсветку ответов
-    function clearAnswerHighlight() {
-        document.querySelectorAll('.answer-item').forEach(el => {
-            el.classList.remove('correct-highlight', 'wrong-highlight');
-        });
-    }
+    function filterQuestions() { renderQuestionsList(); }
     
-    // Подсветить правильные и неправильные ответы
-    function highlightAnswers(selected, correct) {
-        const q = getQuestionById(currentQuestionId);
-        
-        document.querySelectorAll('.answer-item').forEach(el => {
-            const letter = el.getAttribute('data-letter');
-            const answerDiv = el;
-            
-            if (letter === correct) {
-                // Правильный ответ всегда подсвечивается зеленым
-                answerDiv.classList.add('correct-highlight');
-            }
-            
-            if (letter === selected && letter !== correct) {
-                // Неправильный выбранный ответ подсвечивается красным
-                answerDiv.classList.add('wrong-highlight');
-            }
-        });
-    }
-    
-    function renderCurrentQuestion() {
-        const q = getQuestionById(currentQuestionId);
-        if (!q) return;
-        
-        document.getElementById('questionTitle').innerHTML = `<strong>Вопрос ${q.number}:</strong> ${q.text}?`;
-        
-        // Восстанавливаем выбранный ответ
-        const savedAnswer = localStorage.getItem(`ans_${currentQuestionId}`);
-        selectedAnswer = savedAnswer || null;
-        
-        // Проверяем, был ли уже отвечен вопрос
-        const wasAnswered = userAnswers[currentQuestionId] !== undefined;
-        
-        let answersHtml = '';
-        for (let i = 0; i < q.answers.length; i++) {
-            const letter = cyrillicLetters[i] || letters[i];
-            let additionalClass = '';
-            if (wasAnswered && selectedAnswer === letter) {
-                additionalClass = 'selected';
-            }
-            answersHtml += `
-                <li class="answer-item ${additionalClass}" onclick="selectAnswer('${letter}')" data-letter="${letter}">
-                    <span class="answer-letter">${letter}</span>
-                    <span class="answer-text">${q.answers[i]}</span>
-                </li>
-            `;
-        }
-        document.getElementById('answersList').innerHTML = answersHtml;
-        
-        // Если вопрос уже был отвечен, показываем подсветку
-        if (wasAnswered && selectedAnswer) {
-            highlightAnswers(selectedAnswer, q.correct);
-            const isCorrect = (selectedAnswer === q.correct);
-            const msgDiv = document.getElementById('resultMessage');
-            if (isCorrect) {
-                msgDiv.innerHTML = '<div class="result-message correct">✅ Вы уже ответили правильно на этот вопрос!</div>';
-            } else {
-                const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
-                const correctText = q.answers[correctIdx] || '';
-                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Вы ответили неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
-            }
-        } else {
-            document.getElementById('resultMessage').innerHTML = '';
-        }
-        
-        localStorage.setItem('obstetrics_currentQuestion', currentQuestionId);
-        highlightCurrent();
-    }
-    
-    function selectAnswer(letter) {
-        // Нельзя выбрать другой ответ, если вопрос уже проверен
-        if (userAnswers[currentQuestionId] !== undefined) {
-            const msgDiv = document.getElementById('resultMessage');
-            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверили этот вопрос. Перейдите к следующему или сбросьте прогресс.</div>';
-            setTimeout(() => { if (msgDiv.innerHTML.includes('уже проверили')) msgDiv.innerHTML = ''; }, 2000);
-            return;
-        }
-        
-        selectedAnswer = letter;
-        localStorage.setItem(`ans_${currentQuestionId}`, letter);
-        
-        document.querySelectorAll('.answer-item').forEach(el => {
-            el.classList.remove('selected');
-            if (el.getAttribute('data-letter') === letter) {
-                el.classList.add('selected');
-            }
-        });
-    }
-    
-    function checkAnswer() {
-        if (!selectedAnswer) {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Пожалуйста, выберите вариант ответа</div>';
-            return;
-        }
-        
-        // Нельзя проверить дважды
-        if (userAnswers[currentQuestionId] !== undefined) {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверяли этот вопрос!</div>';
-            return;
-        }
-        
-        const q = getQuestionById(currentQuestionId);
-        const isCorrect = (selectedAnswer === q.correct);
-        
-        // Сохраняем результат
-        userAnswers[currentQuestionId] = isCorrect;
-        localStorage.setItem('obstetrics_userAnswers', JSON.stringify(userAnswers));
-        
-        // Подсвечиваем ответы
-        highlightAnswers(selectedAnswer, q.correct);
-        
-        updateStats();
-        renderQuestionsList();
-        
-        const msgDiv = document.getElementById('resultMessage');
-        if (isCorrect) {
-            msgDiv.innerHTML = '<div class="result-message correct">✅ Правильно! Отличный ответ!</div>';
-        } else {
-            const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
-            const correctText = q.answers[correctIdx] || '';
-            msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
-        }
-        
-        // Автоматически убираем сообщение через 3 секунды, но подсветка остается
-        setTimeout(() => {
-            if (msgDiv.innerHTML && (msgDiv.innerHTML.includes('Правильно') || msgDiv.innerHTML.includes('Неправильно'))) {
-                // Не удаляем сообщение, просто даем понять что подсветка останется
-            }
-        }, 3000);
-    }
-    
-    function nextQuestion() {
-        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
-        if (idx < QUESTIONS_DATA.length - 1) {
-            currentQuestionId = QUESTIONS_DATA[idx + 1].number;
-            selectedAnswer = localStorage.getItem(`ans_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-        } else {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message correct">🎉 Поздравляем! Вы прошли все 50 вопросов! 🎉</div>';
-        }
-    }
-    
-    function previousQuestion() {
-        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
-        if (idx > 0) {
-            currentQuestionId = QUESTIONS_DATA[idx - 1].number;
-            selectedAnswer = localStorage.getItem(`ans_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-        }
-    }
-    
-    function showQuestion(id) {
-        currentQuestionId = id;
-        selectedAnswer = localStorage.getItem(`ans_${currentQuestionId}`) || null;
-        renderCurrentQuestion();
-        if (window.innerWidth <= 800) {
-            document.querySelector('.question-card').scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    function startTest() {
-        if (QUESTIONS_DATA.length) {
-            currentQuestionId = QUESTIONS_DATA[0].number;
-            selectedAnswer = localStorage.getItem(`ans_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-    
-    function showRandomQuestion() {
-        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)];
-        showQuestion(random.number);
-    }
-    
-    function resetAllProgress() {
-        if (confirm('ВНИМАНИЕ! Это удалит весь ваш прогресс. Вы уверены?')) {
-            userAnswers = {};
-            localStorage.removeItem('obstetrics_userAnswers');
-            for (let i = 1; i <= 50; i++) {
-                localStorage.removeItem(`ans_${i}`);
-            }
-            currentQuestionId = 1;
-            selectedAnswer = null;
-            renderCurrentQuestion();
-            renderQuestionsList();
-            updateStats();
-            alert('Прогресс успешно сброшен!');
-        }
-    }
-    
-    function filterQuestions() {
-        renderQuestionsList();
-    }
-    
-    // Загрузка страницы
     document.addEventListener('DOMContentLoaded', () => {
         updateStats();
         renderQuestionsList();

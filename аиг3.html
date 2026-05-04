@@ -2,27 +2,27 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тесты по акушерству и гинекологии - Часть 3 (вопросы 101-150)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Акушерство и гинекология: тесты 101-150 (автопроверка)</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1300px;
             margin: 0 auto;
         }
-        
+
         .header {
             background: white;
             border-radius: 20px;
@@ -31,17 +31,17 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
         }
-        
+
         .header h1 {
             color: #667eea;
             font-size: 1.8em;
             margin-bottom: 10px;
         }
-        
+
         .header p {
             color: #666;
         }
-        
+
         .header .badge {
             display: inline-block;
             background: #667eea20;
@@ -51,7 +51,7 @@
             color: #667eea;
             font-weight: bold;
         }
-        
+
         .part-navigation {
             display: flex;
             justify-content: center;
@@ -59,7 +59,7 @@
             margin-top: 15px;
             flex-wrap: wrap;
         }
-        
+
         .part-link {
             display: inline-block;
             background: #667eea20;
@@ -72,17 +72,17 @@
             transition: all 0.3s;
             cursor: pointer;
         }
-        
+
         .part-link:hover {
             background: #667eea;
             color: white;
         }
-        
+
         .part-link.active {
             background: #667eea;
             color: white;
         }
-        
+
         .nav-bar {
             background: white;
             border-radius: 15px;
@@ -94,7 +94,7 @@
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .nav-btn {
             background: #667eea;
             color: white;
@@ -103,26 +103,27 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s;
         }
-        
+
         .nav-btn:hover {
             background: #764ba2;
             transform: translateY(-2px);
         }
-        
+
         .main-content {
             display: grid;
             grid-template-columns: 320px 1fr;
             gap: 25px;
         }
-        
+
         @media (max-width: 800px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         .questions-list {
             background: white;
             border-radius: 20px;
@@ -131,14 +132,14 @@
             overflow-y: auto;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .questions-list h3 {
             color: #667eea;
             margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
         }
-        
+
         .search-box {
             width: 100%;
             padding: 10px 15px;
@@ -147,12 +148,12 @@
             border-radius: 30px;
             font-size: 14px;
         }
-        
+
         .search-box:focus {
             outline: none;
             border-color: #667eea;
         }
-        
+
         .question-item {
             padding: 12px 15px;
             margin: 5px 0;
@@ -162,37 +163,37 @@
             border-left: 3px solid transparent;
             transition: all 0.2s;
         }
-        
+
         .question-item:hover {
             background: #e9ecef;
             transform: translateX(5px);
         }
-        
+
         .question-item.active {
             background: #667eea20;
             border-left-color: #667eea;
         }
-        
+
         .question-item.answered-correct {
             background: #d4edda;
             border-left-color: #28a745;
         }
-        
+
         .question-item.answered-incorrect {
             background: #f8d7da;
             border-left-color: #dc3545;
         }
-        
+
         .question-number {
             font-weight: bold;
             color: #667eea;
         }
-        
+
         .question-status {
             float: right;
             font-size: 12px;
         }
-        
+
         .question-card {
             background: white;
             border-radius: 20px;
@@ -200,7 +201,7 @@
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        
+
         .question-title {
             font-size: 1.2em;
             margin-bottom: 25px;
@@ -208,7 +209,7 @@
             border-bottom: 2px solid #667eea;
             line-height: 1.4;
         }
-        
+
         .question-title strong {
             color: #667eea;
             background: #667eea10;
@@ -217,12 +218,12 @@
             display: inline-block;
             margin-right: 10px;
         }
-        
+
         .answers-list {
             list-style: none;
             margin-bottom: 25px;
         }
-        
+
         .answer-item {
             padding: 14px 18px;
             margin: 10px 0;
@@ -233,24 +234,24 @@
             display: flex;
             align-items: center;
             transition: all 0.2s;
+            position: relative;
         }
-        
-        .answer-item:hover {
+
+        .answer-item:not(.disabled-answer):hover {
             background: #e9ecef;
             transform: translateX(8px);
         }
-        
+
         .answer-item.selected {
             background: #667eea20;
             border-color: #667eea;
         }
-        
+
         .answer-item.correct-highlight {
             background: #d4edda !important;
             border-color: #28a745 !important;
-            position: relative;
         }
-        
+
         .answer-item.correct-highlight::after {
             content: "✓";
             position: absolute;
@@ -259,13 +260,12 @@
             font-size: 20px;
             font-weight: bold;
         }
-        
+
         .answer-item.wrong-highlight {
             background: #f8d7da !important;
             border-color: #dc3545 !important;
-            position: relative;
         }
-        
+
         .answer-item.wrong-highlight::after {
             content: "✗";
             position: absolute;
@@ -274,7 +274,13 @@
             font-size: 20px;
             font-weight: bold;
         }
-        
+
+        .answer-item.disabled-answer {
+            cursor: default;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
         .answer-letter {
             width: 34px;
             height: 34px;
@@ -288,18 +294,18 @@
             font-weight: bold;
             flex-shrink: 0;
         }
-        
+
         .answer-text {
             color: #444;
         }
-        
+
         .buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .btn {
             padding: 12px 25px;
             border: none;
@@ -309,27 +315,17 @@
             font-weight: 500;
             transition: all 0.3s;
         }
-        
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
-        }
-        
+
         .btn-secondary {
             background: #6c757d;
             color: white;
         }
-        
+
         .btn-secondary:hover {
             background: #5a6268;
             transform: translateY(-2px);
         }
-        
+
         .result-message {
             margin-top: 20px;
             padding: 15px;
@@ -338,22 +334,17 @@
             font-weight: bold;
             animation: fadeIn 0.3s;
         }
-        
+
         .result-message.correct {
             background: #d4edda;
             color: #155724;
         }
-        
+
         .result-message.incorrect {
             background: #f8d7da;
             color: #721c24;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .stats-panel {
             background: white;
             border-radius: 20px;
@@ -361,23 +352,23 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .stats-panel h3 {
             color: #667eea;
             margin-bottom: 15px;
         }
-        
+
         .stats-numbers {
             font-size: 2em;
             font-weight: bold;
             margin: 10px 0;
         }
-        
+
         .stats-numbers span {
             color: #667eea;
             font-size: 2.5em;
         }
-        
+
         .progress-bar {
             background: #e0e0e0;
             border-radius: 30px;
@@ -385,7 +376,7 @@
             overflow: hidden;
             margin: 15px 0;
         }
-        
+
         .progress-fill {
             background: linear-gradient(90deg, #667eea, #764ba2);
             height: 100%;
@@ -396,26 +387,17 @@
             font-weight: bold;
             transition: width 0.3s;
         }
-        
+
         .footer {
             text-align: center;
             margin-top: 30px;
             color: rgba(255,255,255,0.8);
             font-size: 0.85em;
         }
-        
-        .questions-list::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .questions-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        .questions-list::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 10px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -423,7 +405,7 @@
 <div class="container">
     <div class="header">
         <h1>📚 Тесты по акушерству и гинекологии</h1>
-        <p>Часть 3 | Вопросы 101-150 | Зеленый - правильно, Красный - неправильно</p>
+        <p>Часть 3 | Вопросы 101-150 | ✅ Автоматическая проверка при выборе ответа</p>
         <div class="badge" id="totalInfo">Загрузка...</div>
         <div class="part-navigation">
             <a class="part-link" onclick="goToPart(1)">📖 Часть 1 (1-50)</a>
@@ -433,23 +415,23 @@
             <a class="part-link" onclick="goToPart(5)">📖 Часть 5 (201-250)</a>
         </div>
     </div>
-    
+
     <div class="nav-bar">
         <button class="nav-btn" onclick="startTest()">📝 Начать тестирование</button>
         <button class="nav-btn" onclick="resetAllProgress()">🔄 Сбросить прогресс</button>
         <button class="nav-btn" onclick="showRandomQuestion()">🎲 Случайный вопрос</button>
     </div>
-    
+
     <div class="main-content">
         <div class="questions-list">
             <h3>
                 📋 Вопросы 101-150
                 <span id="answeredCount">0/0</span>
             </h3>
-            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск вопроса..." onkeyup="filterQuestions()">
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по номеру или тексту..." onkeyup="filterQuestions()">
             <div id="questionsListContainer"></div>
         </div>
-        
+
         <div>
             <div class="question-card">
                 <div class="question-title" id="questionTitle"></div>
@@ -457,11 +439,10 @@
                 <div id="resultMessage"></div>
                 <div class="buttons">
                     <button class="btn btn-secondary" onclick="previousQuestion()">◀ Предыдущий</button>
-                    <button class="btn btn-primary" onclick="checkAnswer()">✅ Проверить ответ</button>
                     <button class="btn btn-secondary" onclick="nextQuestion()">Следующий ▶</button>
                 </div>
             </div>
-            
+
             <div class="stats-panel">
                 <h3>📊 Ваш прогресс</h3>
                 <div class="stats-numbers">
@@ -471,24 +452,23 @@
                     <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
                 </div>
                 <p style="margin-top: 10px; color: #666; font-size: 12px;">
-                    ✅ Правильные ответы сохраняются в браузере
+                    ✅ При выборе варианта — моментальная проверка. Повторный ответ невозможен.
                 </p>
                 <p style="margin-top: 5px; color: #888; font-size: 11px;">
-                    🟢 Зеленый - правильный ответ | 🔴 Красный - неправильный
+                    🟢 Зеленый — правильный ответ | 🔴 Красный — неправильный выбранный ответ
                 </p>
             </div>
         </div>
     </div>
     <div class="footer">
-        <p>Тесты по акушерству и гинекологии | Часть 3 (вопросы 101-150) | Прогресс сохраняется автоматически</p>
+        <p>Акушерство и гинекология | Часть 3 (вопросы 101-150) | Прогресс сохраняется автоматически</p>
     </div>
 </div>
 
 <script>
     // ============================================
-    // БАЗА ВОПРОСОВ 101-150 (ПОЛНОСТЬЮ ЗАПОЛНЕНА)
+    // ПОЛНЫЙ СПИСОК ВОПРОСОВ 101-150
     // ============================================
-    
     const QUESTIONS_DATA = [
         { number: 101, text: "Укажите, что следует предпринять при угрожающем разрыве матки, головка в 1 плоскости малого таза и живом плоде?", answers: ["кесарево сечение под глубоким наркозом", "эфирный наркоз для отдыха", "высокие акушерские щипцы", "наркотические средства для расслабления матки", "вакуум-экстрактор"], correct: "A" },
         { number: 102, text: "Укажите, как изменяются контуры матки при совершившемся полном разрыве матки?", answers: ["не изменяются", "нет контуров матки", "овоидная форма", "форма песочных часов", "шаровидная форма"], correct: "B" },
@@ -540,16 +520,12 @@
         { number: 149, text: "Наименьшая масса тела жизнеспособного плода составляет:", answers: ["500 г", "600 г", "800 г", "1000 г", "300 г"], correct: "A" },
         { number: 150, text: "Частота развития синдрома дыхательных расстройств у новорожденного обусловлена:", answers: ["массой тела", "ростом", "гестационным возрастом", "степенью зрелости", "ЧСС"], correct: "C" }
     ];
-    
-    // ============================================
-    // ИНИЦИАЛИЗАЦИЯ И ЛОГИКА
-    // ============================================
-    
+
+    // --------------------- ЛОГИКА АВТОПРОВЕРКИ -------------------------
     let userAnswers = JSON.parse(localStorage.getItem('obstetrics_userAnswers_part3') || '{}');
     let currentQuestionId = parseInt(localStorage.getItem('obstetrics_currentQuestion_part3') || '101');
-    let selectedAnswer = null;
     
-    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const lettersMapping = ['A', 'B', 'C', 'D', 'E'];
     const cyrillicLetters = ['А', 'В', 'С', 'D', 'Е'];
     
     function getTotal() { return QUESTIONS_DATA.length; }
@@ -571,24 +547,164 @@
         return QUESTIONS_DATA.find(q => q.number === id);
     }
     
+    // Автосохранение и проверка при клике
+    function autoCheckAndSave(selectedLetter, questionObj) {
+        if (userAnswers[questionObj.number] !== undefined) {
+            const msgDiv = document.getElementById('resultMessage');
+            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ На этот вопрос уже отвечен. Сбросьте прогресс, чтобы ответить заново.</div>';
+            setTimeout(() => { if (msgDiv.innerHTML.includes("уже отвечен")) msgDiv.innerHTML = ''; }, 1800);
+            return false;
+        }
+        const isCorrect = (selectedLetter === questionObj.correct);
+        userAnswers[questionObj.number] = isCorrect;
+        localStorage.setItem('obstetrics_userAnswers_part3', JSON.stringify(userAnswers));
+        localStorage.setItem(`selected_letter_part3_${questionObj.number}`, selectedLetter);
+        highlightAnswersOnCard(selectedLetter, questionObj.correct);
+        updateStats();
+        renderQuestionsList();
+        const correctIdx = cyrillicLetters.indexOf(questionObj.correct) !== -1 ? cyrillicLetters.indexOf(questionObj.correct) : lettersMapping.indexOf(questionObj.correct);
+        const correctText = questionObj.answers[correctIdx] || '';
+        const msgDiv = document.getElementById('resultMessage');
+        if (isCorrect) {
+            msgDiv.innerHTML = `<div class="result-message correct">✅ Верно! Правильный ответ: ${questionObj.correct} - ${correctText}</div>`;
+        } else {
+            msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неверно. Правильный ответ: ${questionObj.correct} - ${correctText}</div>`;
+        }
+        disableAnswersOnCurrentCard();
+        return true;
+    }
+    
+    function disableAnswersOnCurrentCard() {
+        document.querySelectorAll('.answer-item').forEach(el => {
+            el.classList.add('disabled-answer');
+        });
+    }
+    
+    function highlightAnswersOnCard(selected, correctLetter) {
+        document.querySelectorAll('.answer-item').forEach(el => {
+            const letter = el.getAttribute('data-letter');
+            el.classList.remove('correct-highlight', 'wrong-highlight');
+            if (letter === correctLetter) el.classList.add('correct-highlight');
+            if (letter === selected && letter !== correctLetter) el.classList.add('wrong-highlight');
+        });
+    }
+    
+    function renderCurrentQuestion() {
+        const q = getQuestionById(currentQuestionId);
+        if (!q) return;
+        document.getElementById('questionTitle').innerHTML = `<strong>Вопрос ${q.number}:</strong> ${q.text}?`;
+        const wasAnswered = (userAnswers[q.number] !== undefined);
+        let answersHtml = '';
+        for (let i = 0; i < q.answers.length; i++) {
+            const letterDisplay = cyrillicLetters[i] || lettersMapping[i];
+            const letterValue = lettersMapping[i];
+            answersHtml += `
+                <li class="answer-item" data-letter="${letterValue}" onclick="handleAnswerClick('${letterValue}', ${q.number})">
+                    <span class="answer-letter">${letterDisplay}</span>
+                    <span class="answer-text">${q.answers[i]}</span>
+                </li>
+            `;
+        }
+        document.getElementById('answersList').innerHTML = answersHtml;
+        
+        if (wasAnswered) {
+            const savedLetter = localStorage.getItem(`selected_letter_part3_${q.number}`) || q.correct;
+            highlightAnswersOnCard(savedLetter, q.correct);
+            disableAnswersOnCurrentCard();
+            const isCorrect = userAnswers[q.number] === true;
+            const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : lettersMapping.indexOf(q.correct);
+            const correctText = q.answers[correctIdx] || '';
+            const msgDiv = document.getElementById('resultMessage');
+            if (isCorrect) {
+                msgDiv.innerHTML = `<div class="result-message correct">✅ На этот вопрос дан верный ответ (${q.correct} - ${correctText})</div>`;
+            } else {
+                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неправильный ответ. Правильный: ${q.correct} - ${correctText}</div>`;
+            }
+        } else {
+            document.getElementById('resultMessage').innerHTML = '';
+        }
+        highlightCurrent();
+        localStorage.setItem('obstetrics_currentQuestion_part3', currentQuestionId);
+    }
+    
+    window.handleAnswerClick = function(letter, qNumber) {
+        const question = getQuestionById(qNumber);
+        if (!question) return;
+        if (userAnswers[question.number] !== undefined) {
+            const msgDiv = document.getElementById('resultMessage');
+            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вопрос уже решен. Сбросьте прогресс.</div>';
+            setTimeout(() => { if (msgDiv.innerHTML.includes("уже решен")) msgDiv.innerHTML = ''; }, 1500);
+            return;
+        }
+        autoCheckAndSave(letter, question);
+    };
+    
+    function nextQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx < QUESTIONS_DATA.length - 1) {
+            currentQuestionId = QUESTIONS_DATA[idx + 1].number;
+            renderCurrentQuestion();
+        } else {
+            document.getElementById('resultMessage').innerHTML = '<div class="result-message correct">🎉 Поздравляем! Вы завершили все вопросы части 3! 🎉</div>';
+        }
+    }
+    
+    function previousQuestion() {
+        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
+        if (idx > 0) {
+            currentQuestionId = QUESTIONS_DATA[idx - 1].number;
+            renderCurrentQuestion();
+        }
+    }
+    
+    function showQuestion(id) {
+        currentQuestionId = id;
+        renderCurrentQuestion();
+        if (window.innerWidth <= 800) document.querySelector('.question-card')?.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function startTest() {
+        if (QUESTIONS_DATA.length) {
+            currentQuestionId = QUESTIONS_DATA[0].number;
+            renderCurrentQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+    
+    function showRandomQuestion() {
+        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)];
+        showQuestion(random.number);
+    }
+    
+    function resetAllProgress() {
+        if (confirm('Сбросить ВЕСЬ прогресс части 3 (вопросы 101-150)? Все ответы будут удалены.')) {
+            userAnswers = {};
+            localStorage.removeItem('obstetrics_userAnswers_part3');
+            for (let i = 101; i <= 150; i++) {
+                localStorage.removeItem(`selected_letter_part3_${i}`);
+            }
+            currentQuestionId = 101;
+            renderCurrentQuestion();
+            renderQuestionsList();
+            updateStats();
+            alert('Прогресс по части 3 полностью сброшен. Можете отвечать заново!');
+        }
+    }
+    
     function renderQuestionsList() {
         const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
         const container = document.getElementById('questionsListContainer');
         if (!container) return;
-        
         let html = '';
         for (const q of QUESTIONS_DATA) {
             const isCorrect = userAnswers[q.number] === true;
             const isAnswered = userAnswers[q.number] !== undefined;
-            let statusClass = '';
-            let statusIcon = '';
+            let statusClass = '', statusIcon = '';
             if (isAnswered) {
                 statusClass = isCorrect ? 'answered-correct' : 'answered-incorrect';
                 statusIcon = isCorrect ? '✅' : '❌';
             }
-            
             if (searchTerm && !q.text.toLowerCase().includes(searchTerm) && !q.number.toString().includes(searchTerm)) continue;
-            
             html += `
                 <div class="question-item ${statusClass}" onclick="showQuestion(${q.number})" data-qid="${q.number}">
                     <span class="question-number">Вопрос ${q.number}:</span>
@@ -597,7 +713,7 @@
                 </div>
             `;
         }
-        container.innerHTML = html || '<div style="padding: 20px; text-align: center;">Вопросы не найдены</div>';
+        container.innerHTML = html || '<div style="padding:20px;text-align:center;">Ничего не найдено</div>';
         highlightCurrent();
     }
     
@@ -610,185 +726,12 @@
         });
     }
     
-    function highlightAnswers(selected, correct) {
-        document.querySelectorAll('.answer-item').forEach(el => {
-            const letter = el.getAttribute('data-letter');
-            el.classList.remove('correct-highlight', 'wrong-highlight');
-            if (letter === correct) {
-                el.classList.add('correct-highlight');
-            }
-            if (letter === selected && letter !== correct) {
-                el.classList.add('wrong-highlight');
-            }
-        });
-    }
-    
-    function renderCurrentQuestion() {
-        const q = getQuestionById(currentQuestionId);
-        if (!q) return;
-        
-        document.getElementById('questionTitle').innerHTML = `<strong>Вопрос ${q.number}:</strong> ${q.text}?`;
-        
-        const savedAnswer = localStorage.getItem(`ans_part3_${currentQuestionId}`);
-        selectedAnswer = savedAnswer || null;
-        
-        const wasAnswered = userAnswers[currentQuestionId] !== undefined;
-        
-        let answersHtml = '';
-        for (let i = 0; i < q.answers.length; i++) {
-            const letter = cyrillicLetters[i] || letters[i];
-            let additionalClass = '';
-            if (wasAnswered && selectedAnswer === letter) {
-                additionalClass = 'selected';
-            }
-            answersHtml += `
-                <li class="answer-item ${additionalClass}" onclick="selectAnswer('${letter}')" data-letter="${letter}">
-                    <span class="answer-letter">${letter}</span>
-                    <span class="answer-text">${q.answers[i]}</span>
-                </li>
-            `;
-        }
-        document.getElementById('answersList').innerHTML = answersHtml;
-        
-        if (wasAnswered && selectedAnswer) {
-            highlightAnswers(selectedAnswer, q.correct);
-            const isCorrect = (selectedAnswer === q.correct);
-            const msgDiv = document.getElementById('resultMessage');
-            if (isCorrect) {
-                msgDiv.innerHTML = '<div class="result-message correct">✅ Вы уже ответили правильно на этот вопрос!</div>';
-            } else {
-                const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
-                const correctText = q.answers[correctIdx] || '';
-                msgDiv.innerHTML = `<div class="result-message incorrect">❌ Вы ответили неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
-            }
-        } else {
-            document.getElementById('resultMessage').innerHTML = '';
-        }
-        
-        localStorage.setItem('obstetrics_currentQuestion_part3', currentQuestionId);
-        highlightCurrent();
-    }
-    
-    function selectAnswer(letter) {
-        if (userAnswers[currentQuestionId] !== undefined) {
-            const msgDiv = document.getElementById('resultMessage');
-            msgDiv.innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверили этот вопрос.</div>';
-            setTimeout(() => { if (msgDiv.innerHTML.includes('уже проверили')) msgDiv.innerHTML = ''; }, 2000);
-            return;
-        }
-        
-        selectedAnswer = letter;
-        localStorage.setItem(`ans_part3_${currentQuestionId}`, letter);
-        
-        document.querySelectorAll('.answer-item').forEach(el => {
-            el.classList.remove('selected');
-            if (el.getAttribute('data-letter') === letter) {
-                el.classList.add('selected');
-            }
-        });
-    }
-    
-    function checkAnswer() {
-        if (!selectedAnswer) {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Выберите ответ</div>';
-            return;
-        }
-        
-        if (userAnswers[currentQuestionId] !== undefined) {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message" style="background:#fff3cd">⚠️ Вы уже проверяли!</div>';
-            return;
-        }
-        
-        const q = getQuestionById(currentQuestionId);
-        const isCorrect = (selectedAnswer === q.correct);
-        
-        userAnswers[currentQuestionId] = isCorrect;
-        localStorage.setItem('obstetrics_userAnswers_part3', JSON.stringify(userAnswers));
-        
-        highlightAnswers(selectedAnswer, q.correct);
-        
-        updateStats();
-        renderQuestionsList();
-        
-        const msgDiv = document.getElementById('resultMessage');
-        if (isCorrect) {
-            msgDiv.innerHTML = '<div class="result-message correct">✅ Правильно!</div>';
-        } else {
-            const correctIdx = cyrillicLetters.indexOf(q.correct) !== -1 ? cyrillicLetters.indexOf(q.correct) : letters.indexOf(q.correct);
-            const correctText = q.answers[correctIdx] || '';
-            msgDiv.innerHTML = `<div class="result-message incorrect">❌ Неправильно. Правильный ответ: ${q.correct} - ${correctText}</div>`;
-        }
-    }
-    
-    function nextQuestion() {
-        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
-        if (idx < QUESTIONS_DATA.length - 1) {
-            currentQuestionId = QUESTIONS_DATA[idx + 1].number;
-            selectedAnswer = localStorage.getItem(`ans_part3_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-        } else {
-            document.getElementById('resultMessage').innerHTML = '<div class="result-message correct">🎉 Поздравляем! Вы прошли все вопросы части 3! 🎉</div>';
-        }
-    }
-    
-    function previousQuestion() {
-        const idx = QUESTIONS_DATA.findIndex(q => q.number === currentQuestionId);
-        if (idx > 0) {
-            currentQuestionId = QUESTIONS_DATA[idx - 1].number;
-            selectedAnswer = localStorage.getItem(`ans_part3_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-        }
-    }
-    
-    function showQuestion(id) {
-        currentQuestionId = id;
-        selectedAnswer = localStorage.getItem(`ans_part3_${currentQuestionId}`) || null;
-        renderCurrentQuestion();
-        if (window.innerWidth <= 800) {
-            document.querySelector('.question-card').scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-    
-    function startTest() {
-        if (QUESTIONS_DATA.length) {
-            currentQuestionId = QUESTIONS_DATA[0].number;
-            selectedAnswer = localStorage.getItem(`ans_part3_${currentQuestionId}`) || null;
-            renderCurrentQuestion();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-    
-    function showRandomQuestion() {
-        const random = QUESTIONS_DATA[Math.floor(Math.random() * QUESTIONS_DATA.length)];
-        showQuestion(random.number);
-    }
-    
-    function resetAllProgress() {
-        if (confirm('Сбросить весь прогресс по части 3?')) {
-            userAnswers = {};
-            localStorage.removeItem('obstetrics_userAnswers_part3');
-            for (let i = 101; i <= 150; i++) {
-                localStorage.removeItem(`ans_part3_${i}`);
-            }
-            currentQuestionId = 101;
-            selectedAnswer = null;
-            renderCurrentQuestion();
-            renderQuestionsList();
-            updateStats();
-            alert('Прогресс сброшен!');
-        }
-    }
-    
-    function filterQuestions() {
-        renderQuestionsList();
-    }
+    function filterQuestions() { renderQuestionsList(); }
     
     function goToPart(part) {
-        if (part === 1) window.location.href = 'part1.html';
-        if (part === 2) window.location.href = 'part2.html';
-        if (part === 3) window.location.href = 'part3.html';
-        if (part === 4) window.location.href = 'part4.html';
-        if (part === 5) window.location.href = 'part5.html';
+        const pages = {1:'part1.html',2:'part2.html',3:'part3.html',4:'part4.html',5:'part5.html'};
+        if(pages[part]) window.location.href = pages[part];
+        else window.location.href = `part${part}.html`;
     }
     
     document.addEventListener('DOMContentLoaded', () => {
